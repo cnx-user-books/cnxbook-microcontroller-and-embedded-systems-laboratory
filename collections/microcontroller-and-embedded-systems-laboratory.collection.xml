@@ -1,0 +1,117 @@
+<col:collection xmlns="http://cnx.rice.edu/collxml" xmlns:md="http://cnx.rice.edu/mdml" xmlns:col="http://cnx.rice.edu/collxml" xml:lang="en">
+  <metadata xmlns:md="http://cnx.rice.edu/mdml" mdml-version="0.5">
+    <md:content-id>col10215</md:content-id>
+    <md:title>Microcontroller and Embedded Systems Laboratory</md:title>
+    <md:language>en</md:language>
+    <md:license url="http://creativecommons.org/licenses/by/1.0">Creative Commons Attribution License</md:license>
+    <md:uuid>06f327fc-5af5-4ae4-b338-d45458218c0c</md:uuid>
+<md:slug>microcontroller-and-embedded-systems-laboratory</md:slug>
+</metadata>
+  <col:content>
+    <col:subcollection>
+      <md:title>Introduction</md:title>
+      <col:content>
+        <col:module document="m11681"/>
+        <col:module document="m12396"/>
+        <col:module document="m12796"/>
+      </col:content>
+    </col:subcollection>
+    <col:subcollection>
+      <md:title>Background</md:title>
+      <col:content>
+        <col:module document="m11655"/>
+        <col:module document="m11851"/>
+        <col:module document="m11866"/>
+        <col:module document="m11857"/>
+        <col:module document="m11855"/>
+      </col:content>
+    </col:subcollection>
+    <col:subcollection>
+      <md:title>Labs</md:title>
+      <col:content>
+        <col:subcollection>
+          <md:title>Lab1 - Lab Equipment</md:title>
+          <col:content>
+            <col:module document="m11895"/>
+            <col:module document="m11902"/>
+            <col:module document="m12335"/>
+          </col:content>
+        </col:subcollection>
+        <col:subcollection>
+          <md:title>Lab 2 - Programming the MSP430    </md:title>
+          <col:content>
+            <col:module document="m11863"/>
+            <col:module document="m11692"/>
+            <col:module document="m12145"/>
+            <col:module document="m11859"/>
+            <col:module document="m11852"/>
+          </col:content>
+        </col:subcollection>
+        <col:subcollection>
+          <md:title>Lab 3 - Assembly Language Programming</md:title>
+          <col:content>
+            <col:module document="m12821"/>
+            <col:module document="m11860"/>
+            <col:module document="m11858"/>
+          </col:content>
+        </col:subcollection>
+        <col:subcollection>
+          <md:title>Lab 4 - Clocking</md:title>
+          <col:content>
+            <col:module document="m11862"/>
+            <col:module document="m11854"/>
+            <col:module document="m12354"/>
+          </col:content>
+        </col:subcollection>
+        <col:subcollection>
+          <md:title>Lab 5 - Interrupts</md:title>
+          <col:content>
+            <col:module document="m12321"/>
+            <col:module document="m12322"/>
+          </col:content>
+        </col:subcollection>
+        <col:subcollection>
+          <md:title>Lab 6 - Timers</md:title>
+          <col:content>
+            <col:module document="m11997"/>
+            <col:module document="m11998"/>
+            <col:module document="m11996"/>
+          </col:content>
+        </col:subcollection>
+        <col:subcollection>
+          <md:title>Lab 7 - Mixed Signal Processing</md:title>
+          <col:content>
+            <col:module document="m12835"/>
+            <col:module document="m11850"/>
+            <col:module document="m11856"/>
+            <col:module document="m11865"/>
+          </col:content>
+        </col:subcollection>
+        <col:subcollection>
+          <md:title>Lab 8 - DMA &amp; RS232</md:title>
+          <col:content>
+            <col:module document="m11994"/>
+            <col:module document="m11867"/>
+            <col:module document="m12734"/>
+          </col:content>
+        </col:subcollection>
+        <col:subcollection>
+          <md:title>Lab 9 - Low Power and Optimization</md:title>
+          <col:content>
+            <col:module document="m12006"/>
+            <col:module document="m12004"/>
+            <col:module document="m12005"/>
+            <col:module document="m12356"/>
+          </col:content>
+        </col:subcollection>
+        <col:subcollection>
+          <md:title>Lab 10 - FIR Filtering</md:title>
+          <col:content>
+            <col:module document="m12009"/>
+            <col:module document="m12427"/>
+          </col:content>
+        </col:subcollection>
+      </col:content>
+    </col:subcollection>
+  </col:content>
+</col:collection>

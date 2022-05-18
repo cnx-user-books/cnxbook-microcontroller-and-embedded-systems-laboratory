@@ -1,0 +1,106 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:md="http://cnx.rice.edu/mdml">
+  <title>Binary and Hexadecimal Notation</title>
+  <metadata><md:content-id>undefined</md:content-id><md:title/><md:uuid>4ccdb4ca-1eda-4a5f-a50c-f85056181aa4</md:uuid>
+</metadata>
+
+  <content>
+    <para id="base2">
+       Because of the nature of the digital systems, 
+       it is necessary to be able to represent numbers as being composed of only 1’s and 0’s.  
+       Ordinarily we represent numbers using the characters 0-9, and this notation is called <term>base 10</term> or <term>decimal</term> notation.  
+       Using only the characters 1 and 0 is called <term>binary</term> notation or <term>base 2</term> 
+       (because there are only 2 characters to represent the number instead of 10).  
+       Converting integers between these two systems is easy.  
+       In base 10 each decimal place represents the number of a certain power of 10.  
+       Thus the one’s place(10^0), 10’s place(10^1), 100’s place (10^2) etc. 
+       In base 2 each place represents a corresponding power of 2.
+    </para>   
+    <para id="convbase2">
+    	To convert a base 10 number into its base 2 form, 
+    	begin at the 2’s place of the largest power of two smaller than the base 10 number you are converting.  
+    	This will be the highest 1 digit of the base two number. 
+    	Now see if the next smaller power of 2 is larger than the reminder of your base 10 number.  
+    	If it is the next place in the base two number is a 0 if its smaller, 
+    	subtract the power of two from the base 10 number and put a 1 in the next place.  
+    	Repeat this until you have reached the 2^0 place.  
+    	To convert back, go through each power of two place in the binary number and multiply it by the corresponding power of two.  
+    	Sum these products to get the decimal version of the binary number. 
+    </para>
+    <example id="convexample1">
+    	<list id="convlistexample" list-type="enumerated">
+    		<title>steps in converting to base 2</title>
+    		<item>
+    			<m:math>
+    			<m:apply><m:eq/>
+    				<m:apply><m:minus/><m:cn>721</m:cn><m:cn>512</m:cn></m:apply>
+    				<m:cn>209</m:cn> </m:apply></m:math> so the first bit is
+    			<m:math><m:apply><m:times/><m:cn>1</m:cn>
+    				<m:apply><m:power/><m:cn>2</m:cn><m:cn>9</m:cn></m:apply></m:apply></m:math></item>
+    		<item><m:math>
+    			<m:apply><m:lt/><m:cn>209</m:cn><m:cn>256</m:cn></m:apply></m:math> so the second bit is
+    			<m:math><m:apply><m:times/><m:cn>0</m:cn><m:apply><m:power/><m:cn>2</m:cn><m:cn>8</m:cn></m:apply></m:apply></m:math></item>
+    		<item><m:math><m:apply><m:eq/><m:apply><m:minus/><m:cn>209</m:cn><m:cn>128</m:cn></m:apply><m:cn>81</m:cn> </m:apply></m:math>so the third bit is 
+    			<m:math><m:apply><m:times/><m:cn>0</m:cn><m:apply><m:power/><m:cn>2</m:cn><m:cn>7</m:cn></m:apply></m:apply></m:math></item>
+    		<item><m:math><m:apply><m:eq/><m:apply><m:minus/><m:cn>81</m:cn><m:cn>64</m:cn></m:apply> <m:cn>17 </m:cn></m:apply> </m:math> so the fourth bit is
+    			<m:math><m:apply><m:times/><m:cn>1</m:cn><m:apply><m:power/><m:cn>2</m:cn><m:cn>6</m:cn></m:apply></m:apply></m:math></item>    
+    		<item><m:math><m:apply><m:lt/><m:cn>17</m:cn><m:cn>32</m:cn></m:apply> </m:math> so the fifth bit is
+    			<m:math><m:apply><m:times/><m:cn>0</m:cn><m:apply><m:power/><m:cn>2</m:cn><m:cn>5</m:cn></m:apply></m:apply></m:math></item> 
+    		<item><m:math><m:apply><m:eq/><m:apply><m:minus/><m:cn>17</m:cn><m:cn>16</m:cn></m:apply> <m:cn>1 </m:cn></m:apply></m:math> so the sixth bit is
+    			<m:math><m:apply><m:times/><m:cn>1</m:cn><m:apply><m:power/><m:cn>2</m:cn><m:cn>4</m:cn></m:apply></m:apply></m:math></item>  
+    		<item><m:math><m:apply><m:lt/><m:cn>1 </m:cn><m:cn>8</m:cn></m:apply></m:math> so the seventh bit is
+    			<m:math><m:apply><m:times/><m:cn>0</m:cn><m:apply><m:power/><m:cn>2</m:cn><m:cn>3</m:cn></m:apply></m:apply></m:math></item> 
+    		<item><m:math><m:apply><m:lt/><m:cn>1</m:cn><m:cn>4</m:cn></m:apply></m:math>		so the eigth bit is
+    			<m:math><m:apply><m:times/><m:cn>0</m:cn><m:apply><m:power/><m:cn>2</m:cn><m:cn>2</m:cn></m:apply></m:apply></m:math></item> 
+    		<item><m:math><m:apply><m:lt/><m:cn>1</m:cn><m:cn>2</m:cn></m:apply></m:math> so the ninth bit is
+    			<m:math><m:apply><m:times/><m:cn>0</m:cn><m:apply><m:power/><m:cn>2</m:cn><m:cn>1</m:cn></m:apply></m:apply></m:math></item> 
+    		<item><m:math><m:apply><m:eq/><m:apply><m:minus/><m:cn>1</m:cn> <m:cn>1</m:cn></m:apply> <m:cn>0</m:cn></m:apply></m:math> so the tenth bit is
+    			<m:math><m:apply><m:times/><m:cn>1</m:cn><m:apply><m:power/><m:cn>2</m:cn><m:cn>0</m:cn></m:apply></m:apply></m:math></item> 
+    		<item>thus the conversion:<m:math>
+    			<m:apply><m:eq/>
+    				<m:cn>721</m:cn>
+    				<m:cn base="2">1011010001</m:cn></m:apply></m:math></item>
+    	</list>
+    	<para id="exampara1">This method works backwards also, starting from <m:math><m:cn base="2">1011010001</m:cn></m:math> 
+    	and expanding each digit by its appropriate exponent. </para>
+   </example>
+  <exercise id="convexer">
+  	<problem id="idp1254176"> <para id="convprob">
+  		What is <m:math><m:cn>293</m:cn></m:math> in binary?
+  		What is <m:math><m:cn base="2">1110001</m:cn></m:math> in decimal?
+  	</para></problem>
+  	<solution id="idp135072"> <para id="convsolut">
+  	<m:math><m:apply><m:eq/><m:cn>293</m:cn><m:cn base="2">100100101</m:cn></m:apply></m:math> and 
+  	<m:math><m:apply><m:eq/><m:cn base="2">1110001</m:cn><m:cn>113</m:cn></m:apply></m:math>
+  	</para></solution>
+  </exercise>
+  <para id="hexa">
+  	<term>Hexadecimal</term> is another numerical convention that is really <term>base 16</term>.  
+  	It uses the characters 0-9 for its first 10 numbers and the letters A-F to represent 10 through 15. 
+  	Conversion between it and base 10 numbers proceeds the same as base 2 substituting powers of 16 for powers of 2.  
+  	However, the important use of hexadecimal numbers is as an abbreviation for binary; 
+  	because binary representation of large numbers becomes quite long.  
+  	When programming, hexadecimal numbers should be prefaced with 0x to indicate that they are hexadecimal numbers
+  	rather than variable names etc.  Thus 14 is a decimal number in C, and 0x14 is a hexadecimal number 
+  	(actually equal to 20 in decimal).  Below is a the list of expansions for hexadecimal to binary to decimal.  
+  </para>
+  <list id="hexconv" list-type="bulleted">
+  <title>binary to hexadecimal equivalence</title>
+  <item><m:math><m:apply><m:eq/><m:cn base="2">0000</m:cn> <m:cn base="16">0</m:cn> <m:cn>0</m:cn></m:apply></m:math></item>
+  <item><m:math><m:apply><m:eq/><m:cn base="2">0001</m:cn> <m:cn base="16">1</m:cn> <m:cn>1</m:cn></m:apply></m:math></item>
+  <item><m:math><m:apply><m:eq/><m:cn base="2">0010</m:cn> <m:cn base="16">2</m:cn> <m:cn>2</m:cn></m:apply></m:math></item>
+  <item><m:math><m:apply><m:eq/><m:cn base="2">0011</m:cn> <m:cn base="16">3</m:cn> <m:cn>3</m:cn></m:apply></m:math></item>
+  <item><m:math><m:apply><m:eq/><m:cn base="2">0100</m:cn> <m:cn base="16">4</m:cn> <m:cn>4</m:cn></m:apply></m:math></item>
+  <item><m:math><m:apply><m:eq/><m:cn base="2">0101</m:cn> <m:cn base="16">5</m:cn> <m:cn>5</m:cn></m:apply></m:math></item>
+  <item><m:math><m:apply><m:eq/><m:cn base="2">0110</m:cn> <m:cn base="16">6</m:cn> <m:cn>6</m:cn></m:apply></m:math></item>
+  <item><m:math><m:apply><m:eq/><m:cn base="2">0111</m:cn> <m:cn base="16">7</m:cn> <m:cn>7</m:cn></m:apply></m:math></item>
+  <item><m:math><m:apply><m:eq/><m:cn base="2">1000</m:cn> <m:cn base="16">8</m:cn> <m:cn>8</m:cn></m:apply></m:math></item>
+  <item><m:math><m:apply><m:eq/><m:cn base="2">1001</m:cn> <m:cn base="16">9</m:cn> <m:cn>9</m:cn></m:apply></m:math></item>
+  <item><m:math><m:apply><m:eq/><m:cn base="2">1010</m:cn> <m:cn base="16">A</m:cn> <m:cn>10</m:cn></m:apply></m:math></item>
+  <item><m:math><m:apply><m:eq/><m:cn base="2">1011</m:cn> <m:cn base="16">B</m:cn> <m:cn>11</m:cn></m:apply></m:math></item>
+  <item><m:math><m:apply><m:eq/><m:cn base="2">1100</m:cn> <m:cn base="16">C</m:cn> <m:cn>12</m:cn></m:apply></m:math></item>
+  <item><m:math><m:apply><m:eq/><m:cn base="2">1101</m:cn> <m:cn base="16">D</m:cn> <m:cn>13</m:cn></m:apply></m:math></item>
+  <item><m:math><m:apply><m:eq/><m:cn base="2">1110</m:cn> <m:cn base="16">E</m:cn> <m:cn>14</m:cn></m:apply></m:math></item>
+  <item><m:math><m:apply><m:eq/><m:cn base="2">1111</m:cn> <m:cn base="16">F</m:cn> <m:cn>15</m:cn></m:apply></m:math></item>
+  </list>
+  </content>
+</document>

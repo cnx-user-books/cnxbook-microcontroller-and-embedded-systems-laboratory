@@ -1,0 +1,40 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml">
+<title>FIR Filters</title>
+  <metadata><md:content-id>undefined</md:content-id><md:title/><md:uuid>139a9da1-46de-47fd-b4f5-ff1fe3aa92c1</md:uuid>
+</metadata>
+  <content>
+    <para id="p1">In signal processing, there are many instances in which an input signal to a system contains extra unnecessary content or additional noise which can degrade the quality of the desired portion.  In such cases we may remove or filter out the useless samples.  For example, in the case of the telephone system, there is no reason to transmit very high frequencies since most speech falls within the band of 400 to 3,400 Hz.  Therefore, in this case, all frequencies above and below that band are filtered out.  The frequency band between 400 and 3,400 Hz, which isn’t filtered out, is known as the passband, and the frequency band that is blocked out is known as the stopband.</para>
+    <para id="p2">FIR, Finite Impulse Response, filters are one of the primary types of filters used in Digital Signal Processing.  FIR filters are said to be finite because they do not have any feedback.  Therefore, if you send an impulse through the system (a single spike) then the output will invariably become zero as soon as the impulse runs through the filter.</para>
+    <section id="s1">
+      <title>How to characterize digital FIR filters</title>
+      <para id="p3">There are a few terms used to describe the behavior and performance of FIR filter including the following:<list id="l1">
+          <item><term>Filter Coefficients</term> - The set of constants, also called tap weights, used to multiply against delayed sample values.  For an FIR filter, the filter coefficients are, by definition, the impulse response of the filter.    </item>
+          <item><term>Impulse Response </term>– A filter’s time domain output sequence when the input is an impulse.  An impulse is a single unity-valued sample followed and preceded by zero-valued samples. For an FIR filter the impulse response of a FIR filter is the set of filter coefficients.      </item>
+          <item><term>Tap </term>– The number of FIR taps, typically N, tells us a couple things about the filter.  Most importantly it tells us the amount of memory needed, the number of calculations required, and the amount of "filtering" that it can do.  Basically, the more taps in a filter results in better stopband attenuation (less of the part we want filtered out), less rippling (less variations in the passband), and steeper rolloff (a shorter transition between the passband and the stopband).  </item>
+          <item><term>Multiply-Accumulate (MAC)</term> – In the context of FIR Filters, a "MAC" is the operation of multiplying a coefficient by the corresponding delayed data sample and accumulating the result.  There is usually one MAC per tap.     </item>
+        </list></para>
+    </section>
+    <section id="s2">
+      <title>General types of filter</title>
+      <para id="p4">
+    There are a couple different basic filter responses.  Each will have a unique frequency response based on its cut-off frequency, the number of taps used, its roll off, and amount of ripple.  The various attributes describing a filter may be seen in the following diagram:<figure id="fig1">
+          <media id="idp934928" alt=""><image src="../../media/low_pass_w_labels.gif" mime-type="image/gif"/></media>
+          <caption>This figure demonstrates an FIR low pass filter with 40 taps.</caption>
+        </figure>Reducing the number of taps used in the filter will reduce the number of calculations to process in the signal, however, the quality of the filtering will suffer.  Rippling will become more sever, the rolloff will be less steep, and the passband will be less accurate.  This may be seen in the following diagram where fewer number of taps were used.
+        <figure id="fig2">
+          <media id="idm1518992" alt=""><image src="../../media/low_pass_11_tap.gif" mime-type="image/gif"/></media>
+          <caption>Using only 11 taps has degraded the filter from figure 1.</caption>
+        </figure>All filters may be categorized by the section of the frequency spectrum that they alter.  The following figures depict some of the basic types of digital filters:
+        <figure id="fig3">
+          <media id="idm2590672" alt=""><image src="../../media/high_pass.gif" mime-type="image/gif"/></media>
+          <caption>High pass filters remove low frequency content.</caption>
+        </figure><figure id="fig4">
+          <media id="idm275376" alt=""><image src="../../media/bandpass.gif" mime-type="image/gif"/></media>
+          <caption>Bandpass filters allow a section in the middle of the spectrum to remain.</caption>
+        </figure><figure id="fig5">
+          <media id="idm276608" alt=""><image src="../../media/stopband.gif" mime-type="image/gif"/></media>
+          <caption>Stopband filters remove a section in the middle of the spectum.</caption>
+        </figure></para>
+    </section>
+  </content>
+</document>

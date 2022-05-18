@@ -1,0 +1,56 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml">
+  <title>What is digital?</title>
+  <metadata><md:content-id>undefined</md:content-id><md:title/><md:uuid>df9e70ea-7dfd-4907-81f3-0d44f4f4da16</md:uuid>
+</metadata>
+
+  <content>
+    <para id="ana1">
+       	To understand what it means for something to be digital, it is easiest first to explain its complement analog.  
+       	The world around us is filled with analog signals: the temperature of the air around changes continuously, 
+       	sound is the undulating change in pressure of the air at our ears, and the ocean moves up and down with the curve of waves.  
+       	An analog signal has the advantage of being able to represent every value possible, 
+       	however, the disadvantage of this is that any small error will alter the signal. 
+       	Over time, many small errors can become a large error.  
+       	When we measure the temperature outside as about 75 degrees, the analog measurement might be 75.433 degrees.  
+       	We round off to 75 degrees because for many purposes, we don’t care about the extra .433 difference.   </para>
+       	
+       	   <figure id="fig1">
+		    <title>An analog signal</title>
+		    <media id="idp142256" alt=""><image src="image1.jpg" mime-type="image/jpeg"/></media>
+		    <caption>Sound as an read by the voltage from a microphone.  The shape characterizes an analog signal.</caption>
+	  </figure>
+       	  	   <figure id="fign">
+	  		    <title>A noisy analog signal</title>
+	  		    <media id="idp741632" alt=""><image src="image2.jpg" mime-type="image/jpeg"/></media>
+	  		    <caption>Same signal as above but with noise added, a very different sound. </caption>
+	  </figure>
+       	<para id="digi1">
+       	A digital signal rounds off all values to a certain precision or a certain number of digits.  
+       	Thus a digital thermometer might be able to indicate that the temperature was 75.4 or 75.5 degrees but not 75.433 degrees.  
+       	The advantage of a digital signal is that, because it automatically rounds off, it is much more resistant to errors.  
+       	A digital signal can ignore the many small errors which, over time, would become a large error in an analog signal.  
+       	Errors that appear in a signal are called noise.  
+       	As long as the volume of the noise remains small relative to the difference between two levels of a digital signal, 
+       	the noise will not affect the digital signal at all.  
+       	Any amount of noise affects an analog signal.  </para>
+       		   <figure id="fig3">
+			    <title>A digital signal</title>
+			    <media id="idp311664" alt=""><image src="image3.jpg" mime-type="image/jpeg"/></media>
+			    <caption>A digital signal and its logical interpretation.</caption>
+		  </figure>
+       		     <figure id="fig4">
+					    <title>A noisy digital signal</title>
+					    <media id="idp775504" alt=""><image src="image4.jpg" mime-type="image/jpeg"/></media>
+					    <caption>A noisy digital signal can still maintain the same logical interpretation.</caption>
+		  </figure>
+       	<para id="comp">In computers, the digital signal is either on or off.  
+       	If a signal’s voltage level is close to 0V then it’s interpreted as off or 0.  
+       	If the signal is close to the operating voltage of the device, say 3.3V, then the signal is interpreted as on or 1.  
+       	Voltages in between are rounded off to on or off, but most devices are designed to  keep the signals at on of the two extremes.  
+       	While the computer operates as if the signal were either a 1 or a 0, 
+       	the underlying voltage is still an analog value like .121V or 3.1.V
+
+    </para>   
+  </content>
+  
+</document>

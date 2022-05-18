@@ -1,0 +1,42 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml">
+  <title>Clock System on the MSP430</title>
+  <metadata><md:content-id>undefined</md:content-id><md:title/><md:uuid>ff6098be-9891-49d0-8a05-f08150bc118b</md:uuid>
+</metadata>
+
+  <content>
+<para id="clock1">
+The clock system on the MSP430 is designed to be flexible and low power.  The implementation of these goals is largely based on the ability to select different clocks for different parts of the chip.  By choosing the minimum clock speed necessary for a given module, power consumption is reduced and the particular synchronization needs of the module can be met. 
+</para>
+
+<para id="clock2">
+The MSP has three clock sources for the clocking system, and three clock lines that chip systems can choose between. The clock sources are used as the basis for the clock lines, and this allows for a mix of slow and fast clocks to be used around the system.  The three clock sources are:
+<list id="sources" list-type="enumerated">
+<item><term>Low Frequency Crystal Clock (LFXTCLK)</term> – this signal is meant to come from a watch crystal external to the MSP itself.  The crystal connects to the XIN and XOUT pins, and the intended oscillation is 32kHz.  This is the source of the Auxiliary Clock  line (ACLK).  The primary control of this source is that it can be turned off with the OSCOFF option in the Status Register.  The source also has a high-speed mode for faster crystals.</item>
+<item><term>Crystal 2 Clock (XT2CLK)</term> – this signal is the second external clock source, and it is connected to the XT2IN and XT2OUT pins.  In our case, the source is connected to a 7.3MHz crystal.  In general, this signal is meant to be the high-speed clock source.  This source  can be turned off with the XT2OFF bit of the Basic Clock system control register 1 (BCSCTL1). </item>
+<item><term>Digitally Controlled Oscillator Clock (DCOCLK)</term> – this is the only internally generated clock input, and it is the default clock source for the master clock upon reset.  By default this clock runs at about 900kHZ, but the RSELx, MODx, and DCOx  bits allow this to be divided down or even blended to achieve a lower clock frequency on average. </item>
+</list>
+</para>
+
+<para id="clock3">
+The three clock lines are:
+<list id="lines" list-type="enumerated">
+<item><term>Master Clock (MCLK)</term> – This clock is the source for the MSP CPU core; this clock must be working properly for the processor to execute instructions.  This clock has the most selection for its source.  The source is selected with the SELMx bits of the Basic Clock System Control Register 2 (BCSCTL2). The divider is controlled with the DIVMx of the BCSCTL2.  Finally, the CPU can be turned off with the CPUOFF bit of the Status Register (SR), but to recover from this state an interrupt must occur.</item> 
+<item><term>Submaster Clock (SMCLK)</term> -  This clock is the source for most peripherals, and its source can either be the DCO or Crystal 2.  The source clock is controlled with the  SELS and SCG bits of the BCSCTL2 and SR.  The divider is controlled by the DIVSx bits of the BCSCTL2.</item>
+<item><term>Auxiliary Clock (ACLK)</term> -  this clock line’s source is always LFXTCLK.  It is an option for slower subsystems to use in order to conserve power.  This clock can be divided as controlled by the DIVAx bits of the Basic Clock System Control Register 1 (BCSCTL1).</item>
+</list>
+</para>
+
+<para id="clock4">
+The MSP clock system has dividers at the beginning of its clocks, and at most peripheral destinations.  This allows for each module to keep a separate timing scheme from other modules.  This is often necessary for off chip buses because these systems have to meet a variety of speed requirements from the outside.  For educational purposes the fastest clocks are usually the most useful, but power consumption is the primary cost of high speed clocks.  
+</para>
+
+<section id="dividers">
+<title>Clock Dividers</title>
+<para id="div1">
+Throughout the MSP clocking system there are clock dividers. A clock divider reduces the frequency of an input clock and outputs this divided frequency.  The simplest dividers work on multiples of two, so the output might be a square wave of half, one quarter, or one eighth the input square wave’s frequency.  
+</para>
+</section>
+
+</content>
+  
+</document>

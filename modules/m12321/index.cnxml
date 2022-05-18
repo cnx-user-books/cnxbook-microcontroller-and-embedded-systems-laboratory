@@ -1,0 +1,108 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml">
+  <title>Interrupts</title>
+  <metadata><md:content-id>undefined</md:content-id><md:title/><md:uuid>f3ac6283-41f7-4814-b312-32d524f3803f</md:uuid>
+</metadata>
+
+  <content>
+    <para id="p1">
+      An <term>interrupt</term> is an event in hardware that triggers the processor to jump from its current program counter to a specific point in the code. Interrupts are designed to be special events whose occurrence cannot be predicted precisely (or at all). The MSP has many different kinds of events that can trigger interrupts, and for each one the processor will send the execution to a unique, specific point in memory. Each interrupt is assigned a word long segment at the upper end of memory. This is enough memory for a jump to the location in memory where the interrupt will actually be handled. Interrupts in general can be divided into two kinds- maskable and non-maskable. A <term>maskable</term> interrupt is an interrupt whose trigger event is not always important, so the programmer can decide that the event should not cause the program to jump. A <term>non-maskable</term> interrupt (like the reset button) is so important that it should never be ignored. The processor will always jump to this interrupt when it happens. Often, maskable interrupts are turned off by default to simplify the default behavior of the device. Special control registers allow non-maskable and specific non-maskable interrupts to be turned on. Interrupts generally have a "priority;" when two interrupts happen at the same time, the higher priority interrupt will take precedence over the lower priority one. Thus if a peripheral timer goes off at the same time as the reset button is pushed, the processor will ignore the peripheral timer because the reset is more important (higher priority). 
+    </para>
+    <para id="p2">
+      The function that is called or the particular assembly code that is executed when the interrupt happens is called the Interrupt Service Routine (ISR). Other terms of note are: An interrupt flag (IFG) this is the bit that is set that triggers the interrupt, leaving the interrupt resets this flag to the normal state. An interrupt enable (IE) is the control bit that tells the processor that a particular maskable interrupt should or should not be ignored. There is usually one such bit per interrupt, and they are often found together in a register with other interrupt enable bits. The most important interrupt on MSP430 is the reset interrupt. When the processor detects a reset or powers up for the first time, it jumps to the beginning of memory and executes the instructions there. The highest priority interrupt vector begins at the address 0xfffe. The lowest priority interrupt begins at 0xFFE0. The complete set of interrupts is ranked by priority:
+      <list id="l1">
+        <item> 15 non-maskable: External reset, power up, watchdog timer reset, invalid flash memory activation</item>
+        <item> 14 non-maskable: oscillator fault, flash memory access violation, NMI</item>
+        <item> 13 maskable: timer B capture compare register 0</item>
+        <item> 12 maskable: timer B capture compare registers 1-6, timer B interrupt</item>
+        <item> 11 maskable: comparator A interrupt</item>
+        <item> 10 maskable: watchdog timer interrupt</item>
+        <item> 9 maskable: USART0 receive interrupt, I2C interrupt</item>
+        <item> 8 maskable: USART0 transmit interrupt</item>
+        <item> 7 maskable: A/D converter interrupt</item>
+        <item> 6 maskable: timer A capture compare register 0 interrupt</item>
+        <item> 5 maskable: timer A capture compare registers 1-2 interrupt</item>
+        <item> 4 maskable: port 1 interrupts</item>
+        <item> 3 maskable: USART1 receive interrupt</item>
+        <item> 2 maskable: USART1 transmit interrupt</item>
+        <item> 1 maskable: port 2 interrupts</item>
+        <item> 0 maskable: D/A converter interrupt</item>
+      </list>
+    </para>
+    <para id="p3">
+      When the interrupt first occurs on the MSP there is a precise order of events that will occur. This process takes 6 instruction cycles to occur.
+       <list id="l2" list-type="enumerated">
+         <item>The current instruction completes.</item>
+         <item>The program counter as it is after the above instruction is pushed onto the stack. The stack is memory whose contents are kept in last in first out order. The stack pointer is always updated to point to the most recent element added to the stack. This allows the processor to call functions and track interrupts. When something is pushed onto the stack, the stack pointer is incremented and the pushed data is written to that location. When you copy out of the stack and decrement the stack pointer, this is called popping something off the stack.</item>
+         <item>The status register is pushed onto the stack.</item>
+         <item>The highest priority interrupt waiting to occur is selected.</item>
+         <item>Single source interrupts have their interrupt request flags reset automatically. Multiple source interrupt flags do not do this so that the interrupt service routine can determine what the precise cause was.</item>
+         <item>The status register with the exception of the SCG0 bit is cleared. This will bring the processor out of any low-power modes. This also disables interrupts (the GIE bit) during the interrupt.</item>
+         <item>The content of the interrupt vector is loaded into the program counter. Specifically the processor executes the instruction at the particular memory location (the interrupt vector) for that interrupt. This should always be a jump to the interrupt service routine.</item>
+       </list>
+     </para>
+     <para id="p4">
+       The interrupt service routine is the code that the programmer writes to take care of the work that needs to be done when a particular interrupt happens. This can be anything you need it to be. Because entering the interrupt turned off the GIE bit, you will not receive any interrupts that happen while you are still in the interrupt service routine. You can turn the interrupts back on if you need to receive interrupts during your interrupt, but usually it is a better idea to make interrupt service routines shorter instead. In C interrupts are simply functions with special declarations. You never call these functions; the compiler simply sets up the interrupt vector table to call your function when the particular interrupt occurs.
+     </para>
+     <para id="p5">
+       This example interrupt is pulled from the fet140_wdt01.c example file by Mark Buccini. The complete file is in the Rowley directory under samples/msp430p140_C.
+       <code display="block" id="idp10263776">
+       
+        // Watchdog Timer interrupt service routine
+        void watchdog_timer(void) __interrupt[WDT_VECTOR] 
+        {
+          P1OUT ^= 0x01;   // Toggle P1.0 using exclusive-OR
+        }
+       
+       </code>
+     </para>
+     <para id="p6">
+       Interrupt functions should always be void and accept no arguments. This particular interrupt service routine (ISR) is called watchdog_timer, but the name does not matter. The way the compiler knows that this function should handle the watchdog timer interrupt is what follows the function name. The __interrupt[] indicates that this is an interrupt and WDT_TIMER is a macro from the MSP header file. Every interrupt vector in the processor has a macro defined for it. To attach this interrupt service routine to a different interrupt, all you need to do is change the WDT_TIMER to one of the other macros defined in the header msp430x16x.h.
+     </para> 
+     <para id="p7">
+       When the end of the ISR is reached the MSP executed a precise set of steps to pick up the execution of the program where it left off before the interrupt occurred. This process takes 5 cycles.
+       <list id="l3" list-type="enumerated">
+         <item>The status register and all previous settings pops from the stack. Any alterations to the status register made during the interrupt are wiped away.</item>
+         <item>The program counter pops from the stack and execution continues from where it left off.</item>
+        </list>
+     </para>
+     <section id="s1">
+     <title>Interrupt Enable Registers</title>
+     <para id="p8">
+       Using interrupts successfully is not as simple as just writing an interrupt service routine and waiting for the event to occur. Because sometimes you do not want to activate every interrupt in the processor at once, the MSP allows you to mask out certain interrupts. When the triggering event first occurs, the processor checks whether the interrupt is enabled before jumping to the interrupt service routine. For most interrupts, the MSP checks the general interrupt enable bit in the status register and the particular interrupt’s enable in the interrupt enable registers. If both of these have been configured to allow the interrupt, then the interrupt flag is set and the processor enters the interrupt service routine.
+     </para>
+     <para id="p9">
+       By default most interrupts are turned off upon reset, to use most peripheral modules you will need to set the enable bits in the interrupt enable registers and turn on the general interrupt enable. Enabling sometimes causes the interrupt flag to be set, so you should consult the User’s guide on the best order to handle the enabling. Usually to properly configure the interrupt, you will also need to have set up the peripheral module in question before enabling the interrupt.
+     </para>
+     <para id="p10">
+       There are three categories of interrupts for the purpose of masking in the MSP430. Reset interrupts, non-maskable non-reset interrupts, and maskable interrupts.
+     </para>
+     <para id="p11">
+       Maskable interrupts are the lowest priority interrupts and can be turned off individually with the various interrupt enable registers or turned off as a group by setting the general interrupt enable bit (GIE) in the status register (SR).
+     </para>
+     <para id="p12">
+       Non-maskable interrupts are not subject to the general interrupt enable (GIE). However each non-maskable interrupt source can be controlled by a bit to specifically turn it on or off. These are the flash access violation interrupt enable (ADDVIE), external NMI interrupt enable (NMIIE), and the oscillator fault interrupt enable (OFIE). All three of these bits are located in the interrupt enable register 1 (IE1).
+     </para>
+     <para id="p13">
+       Reset interrupts have the highest priority and will always reset the execution of the device. The external reset can be configured to trigger either the reset interrupt or an NMI interrupt.
+     </para>
+     <para id="p14">
+       The interrupt enable registers (IE1 and IE2) are used to individually enable the interrupts. Refer to the MSP User’s Guide and Data sheet on the specifics of each peripheral. The example code that accompanies the Rowley system and the Texas Instruments website are also very good sources of example code.
+     </para>
+     <para id="p15">
+       For example, the serial port USART receive interrupt is configured in the example file fet140_uart01_09600.c from Texas Instruments. The serial port interrupts are typical of the maskable peripherals. The procedures followed are drawn from the instructions and notes in the documentation. Often the relevant information may not be in one chapter or section of the guides. This is part of the reason working examples are essential to developing a working knowledge of the processor.
+     </para>
+     <para id="p16">
+       The fet140_uart01_09600.c file begins by turning off the reset activated by the watchdog timer. Then selects the external clock for the ACLK’s source. The example writer assumes a 3.58 MHz clock, but in our case this is a 7.37 MHz clock. This would means that our actual baud rate for this example will be about 19200 baud rather than 9600. The example then executes a do-while loop that waits for the oscillator fault flags to stop being asserted. When an oscillator or crystal first receives power, it often has some instability in its oscillation. The oscillator fault flag detects the instabilities. Because we are planning on using an external clock in the example, it is prudent to wait for the crystal to settle before proceeding.
+     </para>
+     <para id="p17">
+       To support fast operation of the serial port, the example selects the faster external clock for both the CPU and for the UART module. The UART module is also configured to the desired options and baud rate. The details of these settings are found in the UART chapter of the MSP User’s Guide. The serial peripheral supports several different interfaces, so the module enable register ME1 is then used to select UART mode. The interrupt enable for the UART receive is then set. Because the serial port uses general I/O port 3, the special pin use must be selected via the Port 3 mode select (P3SEL). The transmit pin direction must be changed to an output. Finally, the last step is to enable interrupts which sets the general interrupt enable (GIE).
+     </para>
+     <para id="p18">
+       With everything configured, the actual interrupt service routine only needs to process the characters received. The interrupt occurs when a character has been loaded from the serial bus into the receive buffer.
+     </para>
+     <para id="p19">
+       More detailed information on the operation of interrupts can be found in the MSP User’s Guide. Unfortunately the material is generally found in the chapter for each subsystem. The general interrupt information is found in chapter 2.
+     </para>
+    </section>     
+  </content>
+</document>

@@ -1,0 +1,48 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml">
+  <title>Lab 9: Optimization and Low Power Modes</title>
+  <metadata><md:content-id>undefined</md:content-id><md:title/><md:uuid>53b25b50-8dd2-476a-b785-699755ec3ae4</md:uuid>
+</metadata>
+  <content>
+    <section id="s1">
+      <title>Low Power Modes and Code Optimization</title>
+      <exercise id="exercise1">
+        <problem id="idm6851472">
+<title>Fibonacci Optimization</title>
+
+          <para id="p3">
+            The "<link document="m12005">Reducing Power Consumption</link>" module discusses why it is important to keep power in mind when programming embedded devices. We have yet to consider this while programming the previous labs. Writing efficient code is the first step in improving power consumption, next we can disable all parts of the board that aren't currently being used. 
+          </para>
+          <para id="p9">
+          Take the following piece of code: 
+           <code display="block" id="idp2122176">
+                  long fibo(int n) 
+                  {
+                    if (n &lt; 2)
+                      return n;
+                    else 
+                      return fibo(n-1) + fibo(n-2);
+                  }
+                  </code>
+          It recursively calculate the nth number in a Fibonacci sequence recursively.  Recursion makes this piece of code easier to read, however, it is very inefficient and consumes far more memory than it has to.  If you try to compute a large number, say <code>fibo(50)</code>, then it will take much longer and will consume more power than it should.
+          </para>
+          <para id="p2">
+            The original program is very inefficient and wastes memory in several of the ways described in the inefficient <link document="m12006">Memory Conservation</link> module.  Modify the code to eliminate the memory waste and improve the speed of the program.  Note that there is a tradeoff between speed and memory (though at first the program is simply gratuitously wasteful).  What is the nature of the tradeoff?  Assuming the one addition takes one cycle to complete, how long would it take the original code to complete <code>fibo(50)</code>?  How long would it take your new, improved version?  Assume that you are only considering the addition operations.
+          </para>
+           </problem>
+      </exercise>
+      <exercise id="exercise2">
+        <problem id="idm6195200">
+<title>Low Power Modes</title>
+          <para id="p10">
+           Modify your project so that the processor remains in one of the low power modes whenever it is not doing any calculations. Wake up from low power mode when a pushbutton interrupt fires, and have your program compute <code>fibo(50)</code>.  Output the result to the standard out display.  What is the result? (Hint: 12,586,269,025)   Make the result is correct number. As soon as the calculation is done, return to low power mode. Make sure to turn on the Red LED while in an idle state.  
+ <note type="HINT" id="idp1525504"><label>HINT</label>A number must be small enough to fit in its given type.  If it is too large, you may get unpredictable results.  Try using a <code>long long</code> for extra huge numbers.  If your standard out does not support such large data types then you may have to use bit-wise operations to separate the number into smaller chunks suitable for printing.</note>
+ 
+           </para>
+<para id="p12">
+Measure the power consumed by the entire device when you are in low power mode and when it is computing something.  You may want to have the processor compute something indefinitely, in order to get a more accurate result.</para>
+
+        </problem>
+      </exercise>
+    </section>
+  </content>
+</document>

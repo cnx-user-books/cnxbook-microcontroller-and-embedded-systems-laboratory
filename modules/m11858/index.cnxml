@@ -1,0 +1,76 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml">
+  <title>Lab 3: Introduction to Assembly Language</title>
+  <metadata><md:content-id>undefined</md:content-id><md:title/><md:uuid>07655e84-a468-4db4-828c-3d081c8ab50b</md:uuid>
+</metadata>
+
+  <content>
+<para id="lab3.1">
+In this lab you will be introduced to assembly programming.  The specific assembly language instruction set of the MSP will be explained. Setting up and executing assembly projects in Crossworks will also be explained. Finally you will implement the blinking lights program from the previous lab in assembly. 
+</para>
+
+<para id="lab3.2">
+Read the following modules before you begin lab exercises:
+<list id="modules" list-type="bulleted">
+<item><link document="m11855">CPU Registers in the MSP430</link></item>
+<item><link document="m11860">Structure of an Assembly Program</link></item>
+</list>
+</para>
+
+<exercise id="exercise3.1">
+<problem id="idm5679808">
+<para id="pro1">
+Formulate instructions to do the following things:
+<list id="instructions" list-type="enumerated">
+<item>Set bit 3 to 1 at the memory address 0xd640  while leave bits 0-2 and 4-16 unaffected. </item>
+<item>Jump to the instruction labeled POINT if the carry bit is set. </item>
+<item>Shift register R6 right one place while preserving the sign.  </item>
+</list>
+</para>
+</problem>
+</exercise>
+
+<exercise id="exercise3.2">
+<problem id="idp2507344">
+<para id="loop">
+Examine this loop:
+<code display="block" id="idp7420224">
+... more instructions... 	
+Mov.w  &amp;I,  R4  
+Cmp.w  #0x0000, R4 
+JZ    After_loop
+
+Start_loop:
+Dec.w   #0x0001, R4	 
+JZ  After_loop
+BR #Start_loop
+
+After_loop:
+...more instructions...
+</code>
+<list id="loopques" list-type="bulleted">
+<item>How many times will this loop execute?</item>
+<item>Why do we use the BR instruction with a #Start_loop, but with the JZ we use a plain After_loop?</item>
+<item>What does the first JZ instruction do? If we did not have this initial Cmp and JZ, what (possibly) inadvertent effect might occur?</item>
+</list>
+</para>
+</problem>
+</exercise>
+
+<exercise id="exercise3.3">
+<problem id="idp3743472">
+<para id="element-136">Re-write the blinking light program from Lab 2, now using assembly code. The program should do the following:</para><para id="pro3">
+
+<list id="p3instructions" list-type="enumerated">
+<item>When the program starts all three LED’s should light up for about a second then turn off. </item>
+<item>Next, the green LED should blink for about 1/2 second on, 1/2 second off while the other two LED’s are off. </item>
+<item>Pushing Button 1 should cause the green LED to stop blinking and cause the red LED to start the blinking pattern. </item>
+<item>Pushing the button again should continue the pattern with the yellow LED, and pushing it more times should repeat the green, red, yellow pattern. Note that the current LED that's blinking should stop as soon as the button is pressed and the next LED should begin immediately. </item>
+
+</list>
+</para>
+</problem>
+</exercise>
+
+  </content>
+  
+</document>

@@ -1,0 +1,63 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml">
+	<title>Lab 5: Interrupts</title>
+	<metadata><md:content-id>undefined</md:content-id><md:title/><md:uuid>6a037ebc-3197-4d6a-885f-cac1a54f48b7</md:uuid>
+</metadata>
+<content>
+  <exercise id="problem_1">
+    <problem id="idm7296544">
+    <title>Seven Segment Counter</title>
+      <para id="p1a">Write a function, <code>void seg_count(int num)</code>, similar to the LED counting function, <code>led_num()</code>, from <link document="m12354" target-id="p5">Lab 4</link>.  In this case, the function will display a number between 0 and 15 on the seven-segment display in hex.</para>
+
+<para id="prb_4.1b">The pin-outs for the blue <link document="m12796">MSP430F16x Lite Development Board</link> are configurable through a programmable PLD.  This allows the user to change the pin map in software.  You can see the current arrangement of the pins  here: <link url="http://koala.ece.rice.edu/elec226/LiteBoardPinout.htm">LiteBoardPinout</link>
+</para>
+
+<para id="p1">
+Using the <code>seg_count()</code> function you just wrote.  Write a program that does the following:
+<list id="l1"><item>Poll for button_1 being pushed.  Begin counting up slowly on the seven-segment display.  It must be slow enough that it can be human readable.  Counting will pause if button_1 is pushed again.</item>
+
+<item>Poll for button_2 being pushed.  If it is pushed, begin counting in the opposite direction.  Initially, the counter will go up from 0 to F.</item>
+
+<item>If the counter is going up and it reaches its maximum value, it will roll over to zero and continue counting. If it is counting down it will roll over to its maximum value.</item>
+
+<item>Be sure to include all appropriate header files, disable the Watchdog Timer, and initialize the master clock.</item>
+
+</list>
+</para>
+    </problem>
+  </exercise>
+  <exercise id="problem_2">
+    <problem id="idp722096">
+    <title>Firing an Interrupt</title>
+      <para id="p2">Interrupts, as the name implies, will interrupt a program whenever it is, and when the interrupt is done being serviced it will jump back to wherever it was in the program.  This allows the programmer to have more freedom in their code, automates certain functions, and reduces the number of checks handled by the processor.
+      </para>
+      <para id="p3">In order to fire an interrupt, the following must be done: 
+<list list-type="bulleted" id="element-278">
+<item>All interrupts on the processor are disabled by default and must be first enabled globally.</item>
+<item>Next, each specific interrupts must be enabled.</item>
+<item>Finally, for each enabled interrupt, an interrupt service routine (ISR), the interrupt handler, must be written. Once an interrupt fires, the program will jump to this section of the program.</item></list>
+    </para>
+      <para id="p4">
+        A typical program using interrupts will look like the following piece of code:
+        <code display="block" id="idm11773472">
+    void  main(void){      
+      _EINT();            //Enables interrupts globally
+      //... more code
+    }
+
+    void SOME_interrupt (void) __interrupt[SOME_vector]{
+      //...more code that runs once interrupt fires
+      return;
+    }
+        </code>
+Processors are designed to be able to service interrupts from predefined, specific places.   The list of possible interrupts is put into an interrupt vector, and each must be enabled individually.  To find the name of the interrupt vector that needs to be enabled, check the <term>MSP430Fx16x.h</term> header file's <code>Interrupt Vectors</code> section.
+    </para>
+    <para id="p5">
+     Write an interrupt that will fire when the buttons are pushed. If you need additional help, there are examples in the <code>../Crossworks MSP430 1.x/samples/</code> directory.
+
+    </para>
+    <para id="p6">Modify the program from <link target-id="problem_1">Problem 1</link> so that it is interrupt based and does not poll for the buttons being pushed.  How does your program behavior changes?  When would you want to use polling over using an interrupt?
+    </para>
+  </problem>
+</exercise>
+	</content>
+</document>

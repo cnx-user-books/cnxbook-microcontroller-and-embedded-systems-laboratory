@@ -1,0 +1,21 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml">
+  <title>Structure of an Assembly Program</title>
+  <metadata><md:content-id>undefined</md:content-id><md:title/><md:uuid>0a90ad76-ec0b-41a7-b017-f623c6d53867</md:uuid>
+</metadata>
+
+  <content>
+<para id="assem1">
+The assembly program begins execution at the reset interrupt.  The reset interrupt is the first thing that occurs when power is given to the processor.  By default in the Rowley files, the reset interrupt is loaded to send the execution of the program to the start of the .code segment.  Until a branch is reached, the processor will execute each instruction in turn.  If the program does not loop back to an earlier point to keep going, eventually the execution will reach the end of the valid instructions in memory. You should never let this happen.
+</para>
+
+<para id="assem2">
+The control of a programs execution is called <term>control flow</term>, and it is accomplished through branching, jumping, function calls, and interrupts.  Interrupts are the subject of future labs.  Branching and jumping refer to changing the next instruction from the next one sequentially to an instruction elsewhere in the program.  By branching to an instruction above the branch itself you can cause the program to repeat itself.  This is a basic loop in assembly.  Branches can also be conditional. In the MSP architecture conditional branches are generally dependent on the status register (SR) bits to decide whether to execute the next instruction after the branch or the instruction the branch specifies.  Many arithmetic and logical operations can set the relevant bits in the status register; check the MSP430 User’s Guide for which ones you will need.
+</para>
+
+<para id="assem3">
+Once you understand the basics of assembly you should be able to write some simple routines. 
+</para>
+
+  </content>
+  
+</document>

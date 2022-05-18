@@ -1,0 +1,56 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml">
+  <title>Lab 8: DMA + RS232</title>
+  <metadata><md:content-id>undefined</md:content-id><md:title/><md:uuid>e2ef9bd7-91c6-49dc-af6c-600c66306291</md:uuid>
+</metadata>
+
+  <content>
+
+
+        <para id="p6">
+          Direct memory access is a system to transfer data between peripheral modules and memory without using processor instructions.  While its operation does occupy the memory bus, far fewer instructions require CPU interaction.  This allows the CPU to work on other tasks simultaneously, or it may be be put into a low power mode.</para>
+ 
+      <exercise id="exercise5_3">
+        <problem id="idp6970816">
+         <title>DMA Powered Voltmeter</title>
+          <para id="p8">
+             The DMA module allows you to automatically move data between memory locations.  This will also allow us to automate much of your program's execution.
+          </para>
+          <para id="p9"><list id="l1a" list-type="enumerated">
+<item>Set up the DMA module to automatically transfer the data from the ADC to the DAC.   Transfer the input from the ADC1 to DAC0 and ADC0 to DAC1. Sampling should be interrupt enabled.</item>
+<item> Measure the peak-to-peak amplitude of the input signal to  ADC0 using the processor.  Units are irrelevant.  Display the amplitude on the seven segment display.   You should have at least 4 different possible levels.</item>
+         </list>  </para>
+        </problem>
+      </exercise> 
+<exercise id="e2">
+<problem id="idp8182944">
+<title>RS232</title>
+<para id="p2">
+ We will configure the serial port (RS232) to transmit data. Just like before create a new project and do the following: disable the watchdog timer, and initialize the master clock and i2c. This should now be standard for all new projects. To set up the UART to use RS232 we must set the following registers:
+<list id="l1">
+<item> Reset UICTL (on its own line of code)</item>
+<item> Set the character length to 8-bits</item>
+<item> Set U1TCTL to enable ACLK as the BRCLK clock.</item>
+<item>  The baud rate should have the following settings: <code>U1BR0 = 0x7c;</code> and <code>U1BR1 = 0x01;</code> This will set the baud rate at 19,200 bits per second.</item>
+<item> Set ME2 to enable both transmit and receive.</item>
+<item>  Enable UART_TX and UART_RX on the msp (Hint: use P3SEL)</item>
+<item>  Set UART_TX as an output pin.</item>
+</list>
+</para>
+<para id="p3">
+To transmit data, check if the UTXIFG1 flag is set in UTXIFG1. Once the flag is set you may write directly to TXBUF1, and that data will be transmitted. Now, come up with an array of ASCII characters in hexadecimal notation, and load each character in the TXBUF1 one at a time. Don't for get to add a new line character, <code>/n</code>, at the end of your message.
+</para>
+<para id="p4">
+To test your project open up HyperTerminal, and set the correct baud rate (19200). All other default settings should be fine. If you correctly configured the UART then you should see your message in the terminal. 
+</para>
+</problem>
+</exercise> 
+<para id="element-127"> Once you have verified that you can transmit data to the serial port, load the <code>TXBUF1</code> via DMA.  You may trigger the DMA any way you wish.  This will eliminate most of the work that the processor has to do.</para><exercise id="e3">
+<problem id="idp13359936">
+<para id="p5">
+Modify the first problem so that you input something into ADC0 and DMA the samples to the serial port.  Come up with some way for a computer to read those values, HyperTerminal or otherwise. 
+</para>
+</problem>
+</exercise>
+  </content>
+  
+</document>

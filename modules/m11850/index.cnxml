@@ -1,0 +1,40 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml">
+  <title>Analog-to-Digital Converter on the MSP430</title>
+  <metadata><md:content-id>undefined</md:content-id><md:title/><md:uuid>a6e00ad1-6656-4da1-88f9-b2d0f8d814dd</md:uuid>
+</metadata>
+
+  <content>
+<para id="adc1">
+The analog to digital converter (ADC) on the MSP430F169 is a 12 channel, 12 bit converter.  The module is highly configurable and can run largely free of program involvement. In this portion of the lab, we will broadly explain the features of the module, but the particular effects of each register are listed, as usual, in the <emphasis>User’s Guide</emphasis>. 
+</para> 
+
+<section id="range">
+<title>Range of Measurement</title>
+<para id="range1">
+The result of each conversion will be 12 bits long in the form of an unsigned integer whose value is: 
+	4095x (Vin – Vrneg)/ (Vrpos – Vrneg)
+Where Vin is the input voltage to be measured, Vrneg is the lower reference voltage, and Vrpos is the higher reference voltage.  The reference voltages are set to power and ground by default (3.3V and 0V), but they can be changed to several other possibilities using the ADC12 Conversion Memory Control Registers (ADC12MCTLx).  This allows each sample to choose its own voltage references.  This register also allows for selection of the input channel for each sample.   The highest bit of the register is used for multi-channel sequences. This EOS bit indicates the last sample of a sequence. 
+</para>
+</section>
+
+<section id="operating">
+<title>Operation Modes of the ADC</title>
+<para id="oper1">
+The ADC12 has four basic operation modes:
+<list id="modes" list-type="enumerated">
+<item><term>Single channel, single conversion</term>
+This mode corresponds to a request by the processor for a single sample from a single channel.  Interrupts can still be used to indicate when the conversion is complete.  The ADC will write the conversion to the ADC12MEMx cell indicated by the CSTARTADDx bits.</item>
+<item><term>Single channel, repeated conversions</term>
+This mode uses a single ADC12MEMx cell as indicated by the the CSTARTADDx bits.  Because this mode only uses a single memory cell, the results must be collected after each conversion.  The interrupt flag is set after each conversion.</item> 
+<item><term>Multiple channels, single conversion each</term>
+A sequence is set up using the ADC12MCTLx registers to configure each memory slot to sample with the desired parameter.  Each cell will take one sample before the sequence will need to be reinitiated. An interrupt flag will be set after each conversion.</item>
+<item><term>Multiple channels, repeated conversions</term>
+A sequence is set up using the ADC12MCTLx registers to configure each memory slot to sample in the desired way.  The sequence will repeat with the interrupt flag being set after each sample.</item>  
+</list>
+For each mode, a complete state machine diagram of the  procedure is shown in the <emphasis>User’s Guide</emphasis> (chapter 17).  The particular mode is chosen via the CONSEQx bits of the ADC12 Control Register 1 (ADC12CTL1).  The conversions are generally started by setting the ADC12 Start Conversion bit (ADC12SC) or ADC12 Control Register 0 (ADC12CTL0). 
+</para>
+</section> 
+
+  </content>
+  
+</document>

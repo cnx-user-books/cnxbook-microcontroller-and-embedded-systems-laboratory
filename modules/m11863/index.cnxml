@@ -1,0 +1,20 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml">
+  <title>What is a program?</title>
+  <metadata><md:content-id>undefined</md:content-id><md:title/><md:uuid>5fac3f08-a6d9-4ca3-838e-b67acf296317</md:uuid>
+</metadata>
+
+  <content>
+<para id="program1">
+A <term>program</term> is a set of instructions that are grouped together to accomplish a task or tasks.  The instructions, called <term>machine code</term> or <term>assembly code</term> consist of things like reading and writing memory, arithmetic operations, and comparisons.  While these instructions sound simple, it is actually possible to solve a huge group problems with them.  The difficulty in doing so is that you must specify in exact detail precisely how.  Good programming is both an art and a science, and what you will learn today is a beginning of the craft. 
+</para>
+
+<para id="program2">
+As mentioned above,  the individual instructions that the machine actually quite simple or <term>low-level</term> in computer parlance.  Writing complex programs in assembly code took such a long time that eventually better <term>programming languages</term> were invented.  A programming language, like C, is a formal set of grammar and syntax like assembly code; but the instructions in <term>high-level</term> languages encompass hundreds of assembly instructions.  Programs called <term>compilers</term> translate a program written in a higher level language into assembly so that the computer can actually execute the instructions.  Compilers let the programmer write programs so that humans can read them easily while the computer can still execute the instructions. 
+</para>
+
+<para id="program3">
+Generally programming code is organized into text files with suffixes that indicate the programming language.  In the case of C these files are appended with .c, and a C program is made up of at least one of these files.
+</para> 
+  </content>
+  
+</document>

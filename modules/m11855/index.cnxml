@@ -1,0 +1,20 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml">
+  <title>CPU Registers in the MSP430</title>
+  <metadata><md:content-id>undefined</md:content-id><md:title/><md:uuid>05c92db1-bf11-4600-8549-6a72f9c1745a</md:uuid>
+</metadata>
+
+  <content>
+ <para id="cpu1">
+The MSP430 has 16 CPU registers. Of these 16, the upper 12 are general purpose 16 bit registers (R4-R15).  The lower four are:
+<list id="registers" list-type="bulleted">
+<item>R0  Program Counter(PC) – This register controls the next instruction to be executed by the MSP core. In general, this register is incremented automatically during execution. It can be used as a source in operations normally. </item>
+<item>R1 Stack pointer (SP) – The stack pointer is used to keep track of previous execution modes and to return from interrupts. Can be read as a normal register. </item>
+<item>R2 Status Register (SR) – The status register can be written to change the operating mode of the MSP as specified in the User’s Guide. When read it can act as a constant generator. Depending on the instruction code options this register will be read as: a normal register, 0x0000, 0x0004, or 0x0008 depending on the As bits.  </item>
+<item>R3 Constant Generator II – This register cannot be written to, and when read produces:
+0x0000, 0x0001, 0x0002, or 0xffff depending on the As bits.</item>
+</list>
+The rest of the registers on the MSP430 behave as if they were memory.  In most cases, these special purpose registers can be read and written to normally; but they affect the behavior of their respective systems.  
+</para>
+  </content>
+  
+</document>

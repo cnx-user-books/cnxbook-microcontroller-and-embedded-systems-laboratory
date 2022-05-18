@@ -1,0 +1,66 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml">
+	<title>Lab 4: Clocking on MSP430</title>
+	<metadata><md:content-id>undefined</md:content-id><md:title/><md:uuid>658f44de-e1d7-495f-8c9a-ada01078e82a</md:uuid>
+</metadata>
+	<content>
+		
+			<exercise id="exercise1">
+				<problem id="idp2052928"><title>Clock Setup</title>
+					<para id="p3">
+             The following exercise will show you how to manipulate the clocking system on the MSP430.  You may need to refer to the <link document="m12796" resource="msp430f16x_lite.pdf">MSP430F16x Lite Development Board schematic</link> and the <link document="m11852" resource="usersguide.pdf">User's Guide </link> to correctly configure the clock as specified.
+
+             <list id="list1"><item> In order to easily check the state of the clock, output MCLK from a pin header. (HINT: Output MCLK from P5.4) Use the oscilloscope to observe the frequency of the clock, and to see the impact of the changes you will make.  Without modifying the clock registers any further, at what clock rate is the
+processor running at?  How is the clock currently configured in order to produce this built-in clock signal?</item>
+<item>Take the following piece of code that attempts to configure the clock on the MSP430.  It has one major caveat: it doens't work.  It contains incorrect Macro definitions, incorrectly sets the appropriate bits one some registers, and most importantly, it doesn't enable that fastest oscillator for SMCLK and MCLK.  Modify the appropriate lines in order to operate 7.37 MHz without deleting any lines of code.
+
+<code display="block" id="idm7816016">
+                  BCSCTL1 |= XTOFF;                     // XT2 = HF XTAL
+                  do {
+                    IFG1 = OFIFG;                       // Clear OSCFault flag
+                    for (i = 0xFF; i &gt; 0; i--);         // Time for flag to set
+                    }
+                  while ((IFG1 &amp; OFIFG)  != 0);         // OSCFault flag still set?
+                  BCSCTL2 &amp;= SELM0+DIVS1;               // Enable fastest clocking mode
+
+</code>
+</item></list>
+
+              The preceding code should make the following happen: 
+              <list id="l2">
+							<item>XT2 must be turned on and is set as the high frequency oscillator.</item>
+							<item>Clear the oscillator fault interrupt flag.  It is  helpful to halt the processor until the processor is certain that the flag is cleared and the crystal has stablized.  This is done by setting the flag bits in the Interrupt Flag Register to <code>1</code>.</item>
+<item>Don't forget to stop the Watchdog Timer.</item>
+						</list>
+              
+              The power consumed by any computer system is directly proportional to it's clock speed.  A new <link url="http://www.intel.com/">Pentium 4</link> can consume upwards of 100 Watts of power.  Embedded devices try to consume as little power as possible, so it will only enable the features it absolutely needs and will run at the lowest possible clock frequency.
+              
+              <list id="l3">
+							<item>Change the configuration of the clock so that it uses the DCO and runs at ~200kHz.  Why wouldn't we want to run at this rate all the time?</item>
+						</list>
+					</para>
+				</problem>
+			</exercise>
+			<exercise id="ex2">
+				<problem id="idp985680"><title>LED update</title>
+					<para id="p4">Using your new (fast) timer settings and your blinking light system from <link document="m11852" target-id="exercise2.4">Lab 2 Problem 4</link>, modify the code so that each LED remains on for a half second.  Basically, generate the same behavior as the original version but using the new clock settings.  What were the original (much slower) settings for the clock?  What was changed in order to keep the original blink rate?
+
+         </para></problem>
+			</exercise>
+			<exercise id="ex3">
+				<problem id="idm731344"><title>Calculator</title>
+					<para id="p5">
+            Write a program that does that following:
+            <list id="l4">
+							<item>Write a funtion <code>void led_num(int num)</code>.  The function will take a number as a perameter and will use the LEDs to display this  number in binary.  Be sure to check for overflow.  Overflow occurs when you try to represent a number greater than the number of bits available.  In the case of the LEDs, you can not represent a number greater than 3 bits.  What is that number?   You should put all the possible values for PxOUT in an array, in order to simplify your code.</item>
+						</list>
+              The main program will do the following:
+              <list id="l5"><item>Each time button_1 is pushed the LEDs will count up (in increments of one) from zero to their maximum.</item>
+<item>Each time button_2 is pushed the number currently displayed on the LEDs is added to an internal accumulator and the results will be displayed.</item>
+<item>If button_1 is pushed again, the LED counter will count up from zero, and that number will be added to the running sum when button_2 is pushed.</item>
+<item>Pushing the reset button will let you start over.</item></list>
+					</para>
+				</problem>
+			</exercise>
+		
+	</content>
+</document>

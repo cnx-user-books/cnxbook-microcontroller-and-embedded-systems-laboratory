@@ -1,0 +1,38 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml">
+  <title>Setting Breakpoints in Crossworks</title>
+  <metadata><md:content-id>undefined</md:content-id><md:title/><md:uuid>f1441259-2da8-4a8c-9fb6-94eee1ad5092</md:uuid>
+</metadata>
+
+  <content>
+<para id="breakpoints1">
+C with an embedded controller does not have as many input-output (IO) features as a regular computer.  To help you debug, it will sometimes be necessary to stop the processor while it is running and examine the state of the system.  To accomplish this we will use <term>breakpoints</term>.  A breakpoint is a specific command to the development environment to stop execution of the processor when a certain condition happens.  These conditions range from when a certain instruction is reached to when certain data is written or read.  The advanced options are broad.  
+</para>
+
+<para id="breakpoints2">
+To set a basic breakpoint, one which will stop execution when a certain line is reached, just click on the left margin of the C file on the line you want to trigger. A red dot should appear to indicate you have set a break point.  Click once more to make it go away.  Crossworks keeps track of all of the breakpoints for you.  To see this information go to Debug-&gt;Debug Windows-&gt;Breakpoints  this will pop up a list of all of the breakpoints you currently have enabled.  The window also has buttons to create, delete, and modify breakpoints.  There are several different types of breakpoints and each one is configured differently.  We will use the same terminology for the breakpoints as the Rowley environment does, but the usage is not standardized.  
+</para>
+
+<para id="breakpoints3">
+A source code breakpoint triggers on arrival at a certain instruction in the source code.  This kind of breakpoint can be created simply by left clicking on the left margin of the line in question.  The breakpoint should then appear in the breakpoint window. Right clicking on the entry for a breakpoint allows you to edit it.  For all breakpoints, you may select that they only trigger on a certain iteration by editing the Counter field.  If left blank, the breakpoint will trigger each time it occurs.  Entering a number into the counter field will trigger the breakpoint on that numbered time the event occurs. 
+</para>
+
+<para id="breakpoints4">
+Another kind of breakpoint is an expression breakpoint; it triggers when a certain function is executed or a variable is written to.   To set a basic expression breakpoint highlight the name of the function or variable in question and right click on the item to bring up a menu.  From this menu select “Set Breakpoint On &lt;name of variable or function&gt;.”  You can still edit the breakpoint to use the counter. 
+</para>
+
+<para id="breakpoints5">
+Ranged breakpoints watch for data accesses and execution of instructions inside or outside of a specified memory range.  
+</para>
+
+<para id="breakpoints6">
+Finally valued breakpoints break when certain data is written to a variable. The mask capability lets you only look at a certain bit set of the value, and the comparison values allow you to select from a range of values to stop on.  To set up a valued breakpoint, create an expression breakpoint for a variable and edit the breakpoint to be valued.  Make sure that you select whether you anticipate the conditions being a write or a read.  
+</para>
+
+<para id="breakpoints7">
+Alternate explanations of breakpoints can be found in the help contents of the Crossworks system. 
+</para>
+
+
+  </content>
+  
+</document>

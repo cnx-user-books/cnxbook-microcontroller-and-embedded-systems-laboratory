@@ -1,0 +1,94 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml">
+  <title>Lab 7: ADC, DAC, and Mixed Signals</title>
+  <metadata><md:content-id>undefined</md:content-id><md:title/><md:uuid>b36885ff-6304-4ef4-befd-dd1af887294f</md:uuid>
+</metadata>
+
+<content>
+
+<section id="s1">
+<title>ADC, DAC, and Mixed Signals</title>
+<exercise id="exercise4.1">
+<problem id="idm6680400">
+<title>Quickies</title>
+<para id="pro1">
+	<list id="l1" list-type="enumerated"><item>The MSP430 has both a 10 and 12-bit ADC. The number of bits used by the ADC is known as its resolution.  You may learn more about sampling and Analog to Digital Converters from the <link document="m12835">Introduction to Sampling</link> module. How many possible values can be represented for each of the 10 and 12 bit cases?</item>
+<item>Extreme voltages, either too high or too low, cannot be measured correctly.  What is the range of analog voltages that can be accurately represented on <link document="m12796">The MSP430F16x Lite Development Board</link>?  You may want to check the <link document="m12396" resource="usersguide.pdf">User's Guide</link> or experiment with the hardware.</item>
+		<item>In the real world, signals are polluted by "noise" that alters the quality of the original signal.  Signal to Noise Ratio, SNR, is often used as a measure of the quality of a signal.  Before a signal is sampled through the ADC, it is helpful to condition the signal in order to improve its SNR.  What can be done to condition the signal?  Where would it be ideal to condition it and why?  (i.e. at the ADC, near the source, at the processor?) </item>
+<item>The Nyquist Theorem states that a signal must be sampled at least twice as fast as the highest frequency in order to be decoded without error. The minimum sampling frequency is therefore known as the Nyquist Sampling Rate. Typical, audio CDs are sampled at a rate of 44.1 kHz, and can be decoded to 65,536 unique voltage levels. What is the highest frequency that can be represented without error? How many bits per sample are used? What is the total data rate for a stereo CD?</item>
+
+
+	</list>
+</para>
+</problem>
+</exercise>
+
+<exercise id="exercise4.2">
+<problem id="idp2758544">
+<title>ADC Setup</title>
+<para id="pro2">
+<list id="l2" list-type="enumerated"><item>Figure out what the following codes is doing.  Set up the hardware so that it functions correctly, and comment each line of code.  What is the code's function?
+<code display="block" id="idp2635936">
+#include &lt;msp430x16x.h&gt;   
+
+#define yellow 0x80
+#define set_led(led, state) { 
+  if (state) 
+    P1OUT &amp;= ~(led);
+ else P1OUT |= (led); 
+}
+
+void main(void){
+  P1DIR |= 0x80;
+  set_led(yellow,0);
+  WDTCTL = WDTPW+WDTHOLD;               
+  P6SEL |= 0x04;                        
+  ADC12CTL0 = ADC12ON+SHT0_2;          
+  ADC12MCTL0 = SREF_0 + INCH_2 + EOS;   
+  ADC12CTL1 = SHP;                      
+  ADC12CTL0 |= ENC;                     
+   
+  while (1)  { 
+    ADC12CTL0 |= ADC12SC;               
+    while ((ADC12IFG &amp; BIT0)==0);
+    
+    if (ADC12MEM0 &gt;= 1620)
+      set_led(yellow,1)
+    else set_led(yellow,0)
+    _NOP();                             
+  }
+}
+
+</code>
+<note type="HINT" id="idp2416448"><label>HINT</label>Most modern compilers intended for use with embedded processors, such as the <link url="http://www.rowley.co.uk/">Rowley's CrossWorks for MSP430</link>, allow the user to check the status of the registers while the program is halted.  This is extremely helpful in debugging code.  For example, if the program is halted with a <code>NOP()</code> after a sample is taken from the ADC, the user may check the <code>ADC12MEMx</code> register to see the new value that has been stored.  If a value has changed since the last time the processor was halted, it will turn red.</note>
+</item>
+<item>Create a version of the program that is interrupt driven and uses <term>Repeat-single channel Conversion Mode</term>.  The original program uses a while-loop to poll the interrupt flag.  What is the sampling rate?</item>
+<item>Using <term>Repeat-sequence-of-channels Conversion Mode</term>, write an interrupt driven program to sample analog input channels 1 and 2.  As before, toggle an LED for each channel as it passes the 1.5V threshold.  You should now have two separate analog voltages controlling two separate LEDs.</item>
+</list>
+</para>
+</problem>
+</exercise>
+
+<exercise id="element-464">
+<problem id="idm6640704">
+<title>DAC Setup</title>
+<para id="element-910">
+<list id="l1a" list-type="enumerated">
+<item>Configure that <code>DAC12_1CTL</code> register so that DAC0 outputs a triangle wave.  This program should be interrupt driven, and any computation of the triangle wave should be in the ISR.  View the output on the oscilloscope and take a screenshot.</item>
+</list>
+</para></problem>
+</exercise><exercise id="exercise4.3">
+<problem id="idm6146768">
+<title>Stereo to Mono Mixer</title>
+<para id="pro3">
+<list id="prob3" list-type="enumerated">
+<item>Combine the last two problems to create a stereo to mono mixer.  The program should sample ADC0 and ADC1, add the two signals together, and output the result from DAC1.  It is possible to write the contents of <code>ADC12MEMx</code> directly to <code>DAC12_xDAT</code>. You should also scale down each of the input signals so that you don't saturate the output. Only use a single interrupt.  Take a screenshot with a) your stereo input signals (make sure that they are different) and b) your mono result. Could you process an audio CD like the one described in <link target-id="exercise4.1">Problem 1.4</link>?  Explain.</item>
+</list>
+</para>
+</problem>
+</exercise>
+
+</section>
+
+  </content>
+  
+</document>

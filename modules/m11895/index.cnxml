@@ -1,0 +1,53 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml">
+  <title>Using a Basic Function Generator</title>
+  <metadata><md:content-id>undefined</md:content-id><md:title/><md:uuid>181ab0ca-ba8e-406a-9682-fc9737285611</md:uuid>
+</metadata>
+
+  <content>
+  	<section id="s1"><title>What is a function generator?</title>
+    		<para id="p1"> 
+    		A function generator is a device that can produce  various patterns of voltage at a variety of frequencies and amplitudes.  
+    		It is used to test the response of circuits to common input signals. 
+    		The electrical leads from the device are attached to the ground and signal input terminals of the device under test. 
+       		</para>
+
+	</section>
+	<section id="s2"><title>Features and controls</title>
+		<para id="p2">
+		Most function generators allow the user to choose the shape of the output from a small number of options. 
+		<list id="shapelist">
+		<item> Square wave - The signal goes directly from high to low voltage.</item>
+		<item> Sine wave - The signal curves like a sinusoid from high to low voltage.</item>
+		<item> Triangle wave - The signal goes from high to low voltage at a fixed rate.</item>
+		</list>
+		</para>
+		<para id="p3">
+		The amplitude control on a function generator varies the voltage difference between the high and low voltage of the output signal. 
+		</para>
+		<para id="p4">
+		The direct current (DC) offset control on a function generator varies the average voltage of a signal relative to the ground. 
+		</para>
+		<para id="p5">
+		The frequency control of a function generator controls the rate at which output signal oscillates. 
+		On some function generators, the frequency control is a combination of different controls.
+		One set of controls chooses the broad frequency range (order of magnitude) and the other selects the precise frequency.
+		This allows the function generator to handle the enormous variation in frequency scale needed for signals.
+		</para>
+		<para id="p6">
+		The duty cycle of a signal refers to the ratio of high voltage to low voltage time in a square wave signal.  
+		</para>
+	</section>
+	<section id="s3"><title>How to use a function generator</title>
+		<para id="p7">
+		After powering on the function generator, the output signal needs to be configured to the desired shape.  
+		Typically, this means connecting the signal and ground leads to an oscilloscope to check the controls.  
+		Adjust the function generator until the output signal is correct, then attach the signal and ground leads
+		from the function generator to the input and ground of the device under test. 
+		For some applications, the negative lead of the function generator should attach to a negative input of the 
+		device, but usually attaching to ground is sufficient. 
+		</para>
+	</section>
+
+  </content>
+  
+</document>

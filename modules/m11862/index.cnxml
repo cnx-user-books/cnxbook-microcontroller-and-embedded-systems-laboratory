@@ -1,0 +1,22 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml">
+  <title>What is a digital clock?</title>
+  <metadata><md:content-id>undefined</md:content-id><md:title/><md:uuid>dd1c3a00-2ff4-4d7d-b83e-f1ede2bf43a8</md:uuid>
+</metadata>
+
+  <content>
+<para id="clock">
+The clock of a digital system is a periodic signal, usually a square wave, used to trigger memory latches simultaneously throughout the system.  While no part of this definition is strictly true, it does convey the basic idea.  Square waves are used because the quick transitions between high and low voltages minimize the time spent at uncertain digital levels.  The clock ideally reaches all parts of the system at the same time in order to prevent sections from getting out of sync.   Clock signals are generally periodic because the user wants to run the system as fast as possible, but this is often not a necessary attribute.
+</para>
+
+<figure id="fig1">
+<media id="idp7266128" alt=""><image src="../../media/clock.gif" mime-type="image/gif"/></media>
+</figure>
+<para id="p2">
+Clock signals are used to synchronize digital transmitters and receivers during data transfer. For example, a transmitter can use each rising edge of the clock signal of Figure 1 to send a chunk of data.
+</para>
+<para id="p3">
+A faster clock rate all means that you can process more instructions in a given amount of time. 
+</para>
+  </content>
+  
+</document>

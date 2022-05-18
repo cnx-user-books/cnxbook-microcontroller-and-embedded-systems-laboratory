@@ -1,0 +1,71 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml">
+	<title>Lab 10: Implementing an FIR filter</title>
+	<metadata><md:content-id>undefined</md:content-id><md:title/><md:uuid>8f389cf6-0fc4-473b-95d8-771f7de49497</md:uuid>
+</metadata>
+	<content>
+		<para id="p1">
+      In this lab, you will learn how to implement an FIR filter.  The discrete convolution equation that describes the behavior of a causal length-N filter is:
+      <figure id="fir_eqn">
+				<media id="idp4916288" alt=""><image src="../../media/fir_eqn.jpg" mime-type="image/jpeg"/></media>
+			</figure>
+      where x(n) represents the sampled input, h(n) represents the filter's impulse response (it's coefficients), and y(n) is the filtered output.
+    </para><section id="s2">
+			<title>Part I: IO setup</title>
+			<para id="p4"><title>ADC and Timers</title>
+				
+        In order to have a known sampling rate, the ADC must be interrupt driven.  Set up your clock as usual, and let Timer B handle any filter clocks, if available.  Set up the ADC to be interrupt driven and triggered by Timer A.  Use the following code in order to set up Timer A:
+        <code display="block" id="idm8029552">
+					
+          /* TIMER A */
+          TACCR0 = 900;
+          TACCTL1 = OUTMOD_4;
+          TACTL |= TASSEL_2+MC_1;
+          
+				</code>
+        Given these timing settings, what is the sampling rate?
+      </para><para id="p5"><title>DMA and DAC</title>
+				
+        Configure the DMA to transfer your filtered output sample to DAC0.  You can set the DMA trigger inside the ADC12 interrupt service routine after you have finished the filtering.
+      </para>
+			<para id="p6"><title>Circular Buffer</title>
+				
+        Notice that FIR filter equation requires the N last input samples to compute the filtered output.  In this case, you will need to store the last 21 samples including the most recent one.  Implement a circular buffer to store all the required samples.  Once you have reached the end of the buffer, reset your index back to zero.
+      </para><para id="p7"><title>Testing IO setup</title>
+				
+        Verify that the project is working so far by sending the newest value stored in your buffer to the DAC via DMA.  Also, using the memory watch window, make sure that input samples are stored in their correct spot in the buffer. You may have to pause your program every time a sample is taken to verify that the buffer filling up correctly. 
+      </para></section>
+		<section id="s1">
+			<title>Part II: Filter Implementation</title>
+			<para id="p2">
+        You will be implementing a 20-tap FIR filter.  To obtain the filter's coefficients open up Matlab and type the following:
+        <code display="block" id="idm953120">B = remez(20,[0,.5,.55,1],[0,0,1,1])</code>  Next, plot the filter's frequency response with the <code>freqz</code> command.  What kind of filter is this, and given the ADC sampling frequency, what is the expected cutoff frequency?
+      </para><para id="p3">
+        Notice that the array of coefficients includes negative numbers.  They will have to be converted to Q-15 (16 bit), two's complement format.  You can calculate the new coefficients on your own, or you may include the following line in your project:
+        <code display="block" id="idm1594272">
+					
+          signed short coeff[21]={0x04F5,0xF4D0,0xFA12,0x03AF,0x0295,0xF86D,0xFCD1,0x0D18,0x032C,
+          0xD768,0x3CC9,0xD768,0x032C,0x0D18,0xFCD1,0xF86D,0x0295,0x03AF,0xFA12,0xF4D0,0x04F5};
+          
+				</code>
+			</para><para id="p8">
+          Inside your ADC12 interrupt service routine, compute the filtered output sample by taking the inner product of your input samples with the filter coefficients. The inner product is described mathematically in the equation above.  Conceptually, your output can be described as <code>output_sample = most_recent_input_sample*coeff[0] + second_most_recent_input_sample*coeff[1]+...+oldest_input_sample*coeff[20]</code>.  This is a simple multiply and accumulate operation.
+      </para><para id="p9">
+          In order to get real time operation, the MSP's hardware multiplier must be used.  Be sure to use signed multiplication.  How can you use some of the other multiplier functions to simplify your code?  How is the output of the multiplier stored? Since the DAC only transmits 16 bits at a time, which multiplier register should be used as the output, and argue why this is a good scheme?
+      </para></section>
+		<section id="s3">
+			<title>Part III: Testing </title>
+			<para id="p10">
+        Hook up the function generator and the oscilloscope to the ADC and DAC of the board, respectively.  Create a new coefficient array of length 21 consisting of a single one and the rest zeros.  ([1,0,0,...,0]) What would you expect the output to be?  Do you see that on the oscilloscope?  Once this is working, try the original array of coefficients.  Try changing the frequency on the function generator and make sure that filtering is taking place.
+      </para><para id="p11">
+Now let’slook at the effects of the filter in the frequency domain.  Set the oscilloscope to display the FFT of the input.  The FFT, Fast Fourier Transform, will take a signal in the time domain and display it in the frequency domain. Look at the spectrum while using the [1,0,...,0] test coefficients and an arbitrary sine wave.  Include a screenshot in your write up.  Next, generate Gaussian White Noise using the function generator and connect it to the input of the board.  White noise has power at all frequencies, so if we take the FFT of the output of the filter, we should get the frequency response of the filter. Does the actual frequency response look like the one generated by Matlab? Take a screenshot and submit it in the write up.
+        
+      </para></section>
+
+<section id="s4">
+<title>Part IV: Extra Credit</title>
+<para id="s4p1">
+For extra credit, test your filter implementation with a new set of coefficients.  Create a new set of filter coefficients that make up a new filter type.  You may even increase the number of taps in the filter for more accurate results.  
+</para><para id="element-973"> In order to generate a new set of coefficients, open up your favorite copy of matlab and use either the <code>remez</code> command. Newer versions of Matlab suggest you use <code>FIRPM</code>. If you are unsure how to use the command, type <code>help remez</code> to give you the syntax and usage.  You may also try to use the Filter Design Toolbox for a more user friendly interface. </para><para id="element-834"> Once you have your coefficients, you must convert them to twos-complement Q-15 numbers.  You may use <link resource="twocomplement.m">twocomplement.m</link> in order to do the conversion for you.</para>
+</section>
+	</content>
+</document>

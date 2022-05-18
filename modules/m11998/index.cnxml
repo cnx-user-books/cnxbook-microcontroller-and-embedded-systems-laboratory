@@ -1,0 +1,21 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml">
+  <title>Watchdog Timer</title>
+  <metadata><md:content-id>undefined</md:content-id><md:title/><md:uuid>13fa6e9a-f060-4a9f-9176-c24ec10a9d43</md:uuid>
+</metadata>
+
+  <content>
+    <section id="s1">
+      <title>What is the Watchdog Timer?</title>
+      <para id="p1">
+        Software stability is a major issue on any platform.  Anyone who uses software has probably experienced problems that crash the computer or program in question.  This is also true of embedded programs, and in most cases there is no user around to reset the computer when things go wrong.  That job is occupied by the watchdog timer.  The watchdog timer is a 16 bit counter that resets the processor when it rolls over to zero.  The processor can reset the counter or turn it off, but, correctly used, it will reset the processor in case of a code crash.  To avoid getting reset, the program must reset the timer every so often.  A program which has crashed will not do so, and the system will reset.  To improve its efficacy, the watchdog timer register also requires a password.  In order to change the lower part of the watchdog control register, the upper part of the register must be written with a specific value.  This value is specified by the alias WDTPW in the MSP header files.  This password reduces the likelihood that a random crashed instruction could prevent the reset.  
+      </para>
+    </section>  
+    
+    <section id="s2">
+      <title>Other uses for the Watchdog Timer</title>
+      <para id="p2">
+        In situations where a system crash is not a concern, the watchdog timer can also act as an additional timer.  The watchdog timer can be configured to give an interrupt when it rolls over; this interrupt could also be used to handle system crashes.  While the watchdog timer is not as versatile as the other MSP430 timers, the watchdog control register WDTCTL still allows selection of the timer’s divider and clock source.  Often the watchdog timer is simply turned off by setting the hold bit in the control register.  Any changes to this register require writing the password to the upper bits. 
+      </para>
+    </section>
+  </content>
+</document>

@@ -1,0 +1,46 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml">
+  <title>Reducing Power Consumption</title>
+  <metadata><md:content-id>undefined</md:content-id><md:title/><md:uuid>d210933f-dfe8-4216-81a7-6ec0398f10ee</md:uuid>
+</metadata>
+
+    <content>
+    <para id="p1">
+      One of the most important quality standards for battery powered devices is battery life.  Handheld medical tools, electricity meters, personal digital assistants, and a goal of the designer and programmer is to lower the power use of the embedded system to negligible levels.  This portion of the lab will give an overview of how power can be conserved using hardware and software.  In designing battery powered devices, savings can be gained from the choice of electronic components, the arrangement of components, and the software on the design.  The exercises will integrate the low power modes of the MSP into existing labs, so that examples of software power savings can be shown.  </para>
+    <section id="s1">
+      <title>Measuring power on the 226 board with the MSP</title>
+      <para id="p2">
+        The 226 board has the ability to measure its own current consumption from the USB cable.  The ZXCT1009F (component U10) connects to channel 5 of the ADC on the MSP.  This voltage will be proportional to the current passing through the device.  The circuit can measure up to 500 mA used.</para>
+    </section>
+    <section id="s2">
+      <title>Shutting off parts in general</title>
+      <para id="p3"> 
+        Most parts have a shutdown or sleep mode available that will reduce the current consumption of the component considerably.  In general, digital parts consume significant current when their transistors switch because of the charging and discharging of the internal capacitances of the transistors.  Analog integrated circuits also support shutdown modes to reduce power consumption.  Datasheets will specify the current consumption in both on and shutdown modes of the component.  It is important to note that when a device is in shutdown mode, power and ground voltages are still powered and connected to the device.  </para>
+      <para id="p4">
+        In order to shutdown most integrated circuits, all that is required is a shutdown or sleep pin to be asserted properly.  Other devices require a shutdown command to be issued over the bus.  The primary disadvantages of shutdown modes, apart from the fact that the device is inoperative is that recovering back into normal operating modes can impose a significant delay.  A useful property of the MSP is that its recovery time from some low-power modes is fast enough to meet the response times of interrupts.</para>
+      <para id="p5">
+        Parts without built-in shutdown modes must be shutdown by having its current supply controlled through a transistor or other switching device.</para>
+    </section>
+    <section id="s3">
+      <title>Using the Low Power Modes </title>
+      <para id="p6">
+        The MSP430 was designed with the low power modes in mind from its beginnings.  In lower power mode, the processor can achieve current in the microamps while still monitoring its inputs.  While the 226 board cannot take advantage of this ability because of the other higher power components on the board, the principles of utilizing the MSP power modes are described in detail in the second chapter of the MSP User's Guide.  The modes vary the degree to which the processor is aware of its surroundings and the clocks that the processor keeps running.  The processor lowers power consumption partly by shutting off external and internal oscillators.  </para>
+      <para id="p7">
+        There are four low power modes in addition to regular operating mode on the MSP430:</para>
+        <list list-type="bulleted" id="l1">
+          <item>Active Mode is the fully powered mode when the processor executes code and all clocks and peripherals are active.  The chip consumes about 340 µA with 1 MHz clock at 3.3V in this mode.  </item>
+          <item>Low Power Mode 1 (LPM1) disables the CPU and MCLK while leaving the ACLK and SMCLK enabled.  This allows timers, peripherals, and analog systems to continue operation while dropping current consumption to about 70 µA with 1MHz clock at 3.3V.  Because the timers and other internal interrupt systems still operate, the processor will be able to wake itself.</item>
+          <item>Low Power Mode 2 (LPM2) disables the CPU, MCLK, and the DCO are disabled but the SMCLK and ACLK are active.  The DC is disabled if the DCO is not used for MCLK or SMCLK in active mode.  Internal interrupts can still operate.  Current consumption drops to about 17 µA.  </item>
+          <item>Low Power Mode 3 (LPM3) disables the CPU, MCLK, SMCLK, and DCO.  The DC and ACLK remain active.  This allows some peripherals and internal interrupts to continue.  Current consumption drops to about 2 µA. </item>
+          <item> Low Power Mode 4 (LPM4) Current consumption drops to about .1 µA, but all clocks and the CPU are disabled.  This prevents any of the on-chip modules from operating, and only off-chip interrupts can wake the device.  </item>
+        </list>
+      <para id="p7a">
+        To enter a low power mode the status register in the CPU must be set to indicate the desired mode.  Specifically the bits SCG1, SCG0, OSCOFF, and CPUOFF.  The User's Guide details the specific bits needed.  Also provided in the chapter is some example code on changing power modes.  To exit low power mode, an interrupt is needed.  In the interrupt, the previous status register state can be altered so that exiting the interrupt will leave the processor awake.  The User's Guide explains in detail the specifics of entering and leaving low power mode.  Example code with the compiler also demonstrates the low power modes.  </para>
+    </section>
+    <section id="s4">
+      <title>Principles of low power operation on the MSP</title>
+      <para id="p8">
+        The User's Guide for the MSP also explains the principles needed to lower the power consumption of a design.  These principles assume that the microcontroller is a significant portion of the board's current consumption.  In the case of the 226 board, this is not the case.  First, minimize wasteful code execution.  This is the same idea as improving speed performance because every unnecessary instruction wastes a little bit of battery power.  All of the techniques that improve code efficiency will improve power efficiency.  Increasing clock speed will not yield similar power savings because faster execution increases power consumption.  Similarly, unused peripheral modules on the processor should be de-activated to save power.  Use interrupts to handle events to allow the processor to stay in Low Power Mode 3 as much as possible.  By reducing the awake time of the processor, the average current consumption of the MSP can be reduced to levels approximately as low as LPM3 while maintaining the same functionality. </para>
+      <!-- removed problem -->
+    </section>
+  </content>
+</document>

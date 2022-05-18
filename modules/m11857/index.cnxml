@@ -1,0 +1,59 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml">
+  <title>How to Read Datasheets</title>
+  <metadata><md:content-id>undefined</md:content-id><md:title/><md:uuid>cf03fc28-9db4-413f-9bc5-362d22169551</md:uuid>
+</metadata>
+
+  <content>
+<para id="ds1">
+For every electronic component or series of components, the manufacturer or designer produces a data sheet.  In its early stages, a data sheet might be the specifications the designer works from; but, by the time the device is released, the data sheet is the essential piece of information that describes exactly what the component does.  Everything from the smallest resistor to the most elaborate processor needs a datasheet.  Datasheets focus on electrical properties and the pin functions of the device;  usually the inner workings of the device are not discussed.  This is partly to make industrial espionage more difficult, and also because the user should not need to know the internal workings of the device.  In practice, if you find that you need to know how a particular product works internally, you can often call the manufacturer and find out what you need to know. 
+</para>
+
+<para id="ds2">
+In addition to datasheets, devices with complex configurations or applications may have related documents to help the designer work with their products.  These are called “application notes,” “user’s guides,” “designer’s guides,” “package drawings,” etc.  These documents are usually just as necessary as the datasheet.  In general, it is best to get the datasheet directly from the company website relatively often because occasionally there is errata or new information to be found in the datasheets.  Datasheets are invariably covered with legal disclaimers as to the accuracy, permanency, and utility of the document.  Below are some of the kinds of things you might find in a datasheet and explanations of their usual meaning. 
+</para>
+
+<para id="ds3">
+Official name of the part or series, part numbers and part number variations and manufacturer release date of the datasheet.  Part number variations usually indicate alternative packaging or temperature tolerance.  For component families, a chart might be provided to helpfully graph all of the family members.  Price is usually not indicated on a datasheet. 
+</para>
+
+<para id="ds4">
+An overview of the parts purpose and features is usually included near the beginning.  This is what you scan to see if the part is what you think it is.  
+</para>
+
+<para id="ds5">
+The electrical operating characteristics section of a datasheet indicates the minimum and maximum voltage and current parameters for the chip as a whole and for individual pins.  Power requirements for the chip as a whole are essential.  The power supply circuitry of the device must be able to support all of the components.  Operating frequencies of clocks or information are often indicated here.  Pin electrical characteristics are important when using the pin to drive larger loads.  Lower power integrated circuits are not always capable of driving an LED, for example.  Noise tolerance of the power supply, or noise created by the component might also be found here.  Capacitance, inductance, and resistance caused by the component might also be found here.   These are especially important for high-speed circuit analysis. 
+</para>
+
+<para id="ds6">
+The datasheet should also note the tolerances of the device.  While the above operating characteristics indicated what conditions are needed for the device to operate as promised, the tolerances indicate the maximum and minimum conditions the component can handle without permanent damage.  Both the operating conditions and the tolerances should indicate the nature of the testing experiments.   Voltage, temperature, moisture, air pressure, ultraviolet radiation, and physical stress are possible tolerance conditions. 
+</para>
+
+<para id="ds7">
+The arrangement and name of each pin on the chip is a necessity on any integrated circuit (IC) datasheet.  The diagram should specify whether the diagram is from a point of view above or below the chip and list the pins by name or number.  Pin functional descriptions should accompany the pin map diagram to explain the basic purpose of each pin. If this short description is insufficient, a more elaborate explanation is usually included later in the datasheet.  Often the short descriptions may not be 100% clear to a novice data sheet reader because of abbreviations or conventions.  If the data sheet doesn’t fully explain what the short description means, the term is probably common enough to be found elsewhere on the Internet. 
+</para>
+
+<para id="ds8">
+A block diagram of architecture might be included for more complex devices.  Other internal descriptions might be provided, but usually the description is limited to the parts of the system that the user can access. 
+</para>
+
+<para id="ds9">
+Waveforms of input or outputs are common.  This is especially true for explaining bus operation and data formats.  Timing diagrams and information are also essential for finding interoperable devices.  Just because two components use the same bus protocol does not always mean they can talk to each other.  Checking this information is always a good idea. 
+</para>
+
+<para id="ds10">
+Graphs of I/V curves, noise profiles, input response, performance descriptions  are  very common.  For system/control behavior this can be useful, but the testing conditions are not always entirely clear.   This kind of information is the basis of the analysis many engineers do, but the graphs are rarely a good substitute for prototyping.  
+</para>
+
+<para id="ds11">
+Many kinds of components only work if accompanied by necessary passive components.  Usually these systems provide an “example” configuration that will produce a known behavior.  Examples are very useful if you have the same needs the example configuration claims to meet, but the datasheet should also include the formulas and explanation necessary to pick your own accompanying components. </para>
+
+<para id="ds12">
+Distribution information and manufacturing or assembly advice might also be found in a datasheet.   For example, a crystal clock might specify that it should be soldered to the circuit board for no more than 10 seconds at 400 degrees.  For commercial design this kind of information is useful, as adhering to such recommendations improves yield. 
+</para>
+
+<para id="ds13">
+Mechanical drawing and footprints are the last piece of essential information a datasheet includes.  This will be a drawing of the physical form of the device, with measurements specified in metric and American units.  For designing a board, it is very important to understand the drawings because incorrectly interpreting the relationship among the pins will waste an entire revision of the board.  The usual way of describing the dimensions is to specify a pin width and spacing precisely, but to give broader tolerances on the exact length and width of the overall device.  What this means is that the process of manufacturing the ICs tries to control the width and spacing of the pins, but everything else is somewhat flexible. 
+</para>
+  </content>
+  
+</document>

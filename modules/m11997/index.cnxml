@@ -1,0 +1,58 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml">
+  <title>Timers on the MSP430</title>
+  <metadata><md:content-id>undefined</md:content-id><md:title/><md:uuid>cfc66692-45d2-45cc-b6dd-72d4ad180ff8</md:uuid>
+</metadata>
+
+  <content>
+    <para id="p1">
+       The Timer A and B systems on the MSP are a versatile means to measure time intervals.  The timers can measure the timing on incoming signals or control the timing on outgoing signals.  This function is necessary to meet arbitrary timing requirements from outside components, and the ability is useful in phase locking scenarios etc.  
+    </para>
+    
+    <para id="p2">
+       The most basic operation of the timer systems is that the counter in the module counts upward for each clock cycle.  The timer clocks can be sourced from both ACLK and SMCLK or from two special external sources INCLK or TBCLK.  These last two use general I/O, but allow for a clocking speed not based on the others.  The incoming source can be divided down by multiples of two before entering the counter.  The user’s guide for the MSP has good diagrams on the architecture of the system in the respective sections for Timers A and B.  Below the features and uses of Timer B are outlined.
+    </para>   
+    
+    <section id="p3">
+      <title>Timer B Modes</title>
+      <para id="p4">
+        Timer B is a flexible system.  In addition to clock source selection and input clock dividing, the main counter itself can be set to count to 8, 10, 12 or 16 bits.  The main counter can also vary its counting pattern among several options with the MCx bits of the Timer B Control Register TBCTL.  These modes are:
+        <list id="l1" list-type="enumerated">
+          <item>Stop- the counter is not running</item>
+          <item>Up- the counter counts upward from zero to the value in Timer B Compare Latch 0 (TBCL0).  When it gets to this value, it resets to zero.  If the TBCL0 value is larger than the allowed maximum number of bits for Timer B, the counter behaves as if in Continuous mode.</item>
+          <item>Continuous- the counter counts from zero to the maximum value specified by the CNTLx bits of the TBCTL register.  When the counter reaches this value, it resets to zero.</item>
+          <item>Up/down mode – the counter counts up to the value in TBCL0 then counts back down to zero (as opposed to resetting directly to zero).  If the TBCL0 value is larger than the allowed maximum number of bits for Timer B, the counter behaves as if in Continuous mode.</item>
+        </list>
+      </para>
+    
+      <para id="p5">
+        Please note that the word count is used above- if the timer is set to a certain number it will not trigger anything.  The timer must count from the number below to the target number to trigger effects. 
+      </para>  
+    </section>      
+    
+    <section id="s2">
+    <title>Timer B Capture Compare Register 0</title>
+      <para id="p6">
+        There are seven total capture compare registers in Timer B.  While there is only one counter for all 7 modules, they can each interpret the count independently.  The most important module is module 0 because it controls the timer with its TBCL0 register.  Primarily it controls rollovers, but it also has its own dedicated interrupt.  Setting this module up correctly is essential for desired operation of Timer B.
+      </para>
+    </section>
+    
+    <section id="s3">  
+    <title>What is Capture/Compare?</title>
+      <para id="p7">
+        A capture is a record of the timer count when a specific event occurs.  The capture modules of the timers are tied to external pins of the MSP.  When the control registers of timer B and the specific capture compare module have been properly configured, then the capture will record the count in the timer when the pin in question makes a specific transition (either from low to high or any transition).  This capturing event can be used to trigger an interrupt so that the data can be processed before the next event.  In combination with the rollover interrupt on Capture module 0, you can measure intervals longer than 1 cycle.  
+      </para>
+      <para id="p8">
+        A compare operation is less intuitive than the capture, but it is basically the inverse of a capture.  While capture mode is used to measure the time of an incoming pulse width modulation signal (a signal whose information is encoded by the time variation between signal edges), compare mode is used to generate a pulse width modulation (PWM) signal.  When the timer reaches the value in a compare register, the module will give an interrupt and change the state of an output according to the other mode bits.  By updating the compare register numbers, you change the timing of the signal level transitions.
+      </para>
+      <para id="p9">      
+        This may sound somewhat complicated, but the basic concept of measuring (input) or controlling (output) the time interval between high to low and low to high transitions is all you need to know to start with.  The MSP capture/compare modules have many different ways to perform each operation.  This can be somewhat overwhelming, but it allows the microprocessor to handle inputs from a greater variety of other components.  Capturing and comparing are done with the same modules, and each one can be configured individually.  They can also be grouped using the TBCTL to trigger the capture compare registers to load simultaneously (useful for compare mode).  The MSP430 User’s Guide fully details the behavior of the modules and the registers that control them.
+      </para>
+    </section>
+    <section id="s4">
+      <title>Timer Interrupts</title>
+      <para id="p10">
+        There are two interrupts related to timer B.  One interrupt is dedicated to capture compare module 0; and, depending on configuration, it fires when the counter rolls back to zero.  The second interrupt handles all 6 other capture compare registers, and fires to indicate that the module has captured or compared as explained above.  Each module can be individually masked or enabled, and a special register stores which module caused the interrupt.  As with all maskable interrupts, setting the general interrupt enable is necessary to receive them.  The interrupts are important in being able to perform complex operations as new data arrives.
+      </para>   
+    </section>
+  </content>  
+</document>

@@ -1,0 +1,37 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml">
+  <title>What is Direct Memory Access (DMA)?</title>
+  <metadata><md:content-id>undefined</md:content-id><md:title/><md:uuid>fda07306-cf0b-488b-bf35-88c1aef465ec</md:uuid>
+</metadata>
+
+  <content>
+<para id="dma1">
+ Direct memory access is system that can control the memory system without using the CPU.   On a specified stimulus, the module will move data from one memory location or region to another memory location or region. While it is limited in its flexibility, there are many situations where automated memory access is much faster than using the CPU to manage the transfers.  Systems like the ADC, DAC and PWM capturing all require frequent and regular movements of memory out of their respective systems.  The DMA can be configured to handle moving the collected data out of the peripheral module and into more useful memory locations (like arrays).  Only memory can be accessed this way, but most peripheral systems, data registers, and control registers are accessed as if they were memory.  The DMA is intended to be used in low power mode because it uses the same memory bus as the CPU and only one or the other can use the memory at the same time.  
+</para>
+
+<para id="dma2">
+The DMA system is organized into three largely independent parts. Though the three compete for the same memory bus, they have can be configured for independent triggers and memory regions.  
+</para>
+
+<section id="operation">
+<title>DMA Operation</title>
+<para id="op1">
+There are three independent channels for DMA transfers.  Each channel receives its trigger for the transfer through a large multiplexer that chooses from among a large number of signals.  When these signals activate, the transfer occurs.  The DMAxTSELx bits of the DMA Control Register 0 (DMACTL0).  The DMA controller receives the trigger signal but will ignore it under certain conditions.  This is necessary to reserve the memory bus for reprogramming and non-maskable interrupts etc. The controller also handles conflicts for simultaneous triggers.  The priorities can be adjusted using the DMA Control Register 1 (DMACTL1).  When multiple triggers happen simultaneously, they occur in order of module priority.  The DMA trigger is then passed to the module whose trigger activated.  The DMA channel will copy the data from the starting memory location or block to the destination memory location or block.  There are many variations on this, and they are controlled by the DMA Channel x Control Register (DMAxCTL):
+<list id="variations" list-type="enumerated">
+<item><term>Single Transfer</term> - each trigger causes a single transfer.  The module will disable itself when DMAxSZ number of transfers have occurred (setting it to zero prevents transfer).  The DMAxSA and DMAxDA registers set the addresses to be transferred to and from.  The DMAxCTL register also allows these addresses to be incremented or decremented by 1 or 2 bytes with each transfer. This transfer halts the CPU.</item>
+<item><term>Block Transfer</term> - an entire block is transferred on each trigger. The module disables itself when this block transfer is complete. This transfer halts the CPU, and will transfer each memory location one at a time.  This mode disables the module when the transfer is complete.</item>
+<item><term>Burst-Block Transfer</term> - this is very similar to Block Transfer mode except that the CPU and the DMA transfer can interleave their operation.  This reduces the CPU to 20% while the DMA is going on, but the CPU will not be stopped altogether.  The interrupt occurs when the block has completely transferred. This mode disables the module when the transfer is complete. </item>
+<item><term>Repeated Single Transfer</term> - the same as Single Transfer mode above except that the module is not disabled when the transfer is complete.</item>
+<item><term>Repeated Block Transfer</term> - the same as Block Transfer mode above except that the module is not disabled when the transfer is complete.</item>
+<item><term>Repeated Burst-Block Transfer</term> - the same as Burst Block Transfer mode above except that the module is not disabled when the transfer is complete.</item>
+</list>
+</para>
+
+<para id="op2">
+Writing to flash requires setting the DMAONFETCH bit.  If this is not done, the results of the DMA operation are “unpredictable.”  Also, the behavior and settings of the DMA module should only be modified when the module is disabled.  The setting and triggers are highly configurable, allowing both edge and level triggering.  The variety of settings is detailed in the DMA chapter of the users guide. Also, it is important to note that interrupts will not be acknowledged during the DMA transfer because the CPU is not active.   Each DMA channel has its own flag, but the interrupt vector is shared with the DAC. This necessitates some software checking to handle interrupts with both modules enabled. 
+</para>
+</section>
+
+
+  </content>
+  
+</document>

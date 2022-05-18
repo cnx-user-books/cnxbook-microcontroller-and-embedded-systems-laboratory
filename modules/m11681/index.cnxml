@@ -1,0 +1,72 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml">
+  <title>ELEC226 Course Philosophy</title>
+  <metadata><md:content-id>undefined</md:content-id><md:title/><md:uuid>0839d546-cdca-4795-85c3-c6f1834e57d9</md:uuid>
+</metadata>
+
+  <content>
+  	<section id="sec_overview">
+  	<title>Course Overview</title>
+    <para id="par_overview">
+       <note type="note" id="idp186992">Some of the terms in this module may have no meaning for you now. That is fine. By the end of the course, you will understand them all.</note>
+       This is a course about microcontrollers and embedded systems, specifically the Texas Instruments MSP430F169 microcontroller. This course is a hands-on laboratory experience, and is primarily intended for an audience freshman and sophomore undergraduate students, though anyone who is interested in knowing about this subject matter is encouraged to take it. No prerequisites are required, and a best effort is made to teach you (the student) as much as possible about microcontroller systems. Therefore, I try to make no assumptions about your previous experience with digital logic, programming computing systems of any sort, and detailed understanding of hardware.
+    </para>
+    <para id="par_concepts1">
+    	By the end of this course, you will have learned many things related to designing a system with a microcontroller. The emphasis is primarily on the design of software for microcontroller systems, and as such, this is not a hardware design course. However, following this course you will have enough detailed understanding of microcontroller architecture and operation such that a follow-on hardware design course would allow you to sucessfully produce your own hardware/software system. Among the main concepts you will learn in this course are:
+	</para>
+	<para id="par_concepts2">
+	<list id="lst_concepts">
+	<title>ELEC226 Course Concepts</title>
+	<item>What a microcontroller is, what type of applications they are used for, and how to use one.</item>
+	<item>The basics of structured programming using the C language and, to a lesser extent, assembly language.</item>
+	<item>How to compile, execute and debug your programs on a microcontroller.</item>
+	<item>Understand the architecture of microcontrollers in general and the specific architecture of the MSP430F169, including how to interface with the on-chip peripherals such as the ADC and DAC.</item>
+	<item>Interfacing with off-chip peripheral hardware, such as expansion memory.</item>
+	<item>Microcontroller programming techniques: using timers, clock and power management, task scheduling, etc...</item>
+	<item>Simple digital signal processing.</item> 
+	</list>
+    </para>    
+    </section>
+    
+    <section id="sec_structure">
+    <title>Course Structure</title>
+    <para id="par_structure">
+    	The course structure will consist of one weekly lecture to discuss topics in microcontroller architecture and embedded systems design. In addition, there will be weekly hands-on lab sessions. At the end of the semester, the students will have to complete a project which will combine many of the skills they have learned during the course. There will be occasional in-class quizzes to reinforce the material learned in lab.
+    </para>
+    </section>   
+  	<section id="sec_grading">
+  	<title>Grading</title>
+  	<para id="par_grading">
+  		The grading system is shown in the table below. Most of the grade is determined byt the sucessful completion of the lab work and by the end-of-semester project.
+  		
+  		
+<table frame="all" id="tbl_grading" summary="">
+  <title>ELEC226 Grading</title>
+  <tgroup cols="2" colsep="1" rowsep="1">
+    <thead>
+      <row>
+        <entry>Item</entry>
+        <entry>Percentage</entry>
+      </row>
+    </thead>
+    <tbody>
+      <row>
+        <entry align="center">Weekly Labs</entry>
+        <entry align="center">50%</entry>
+      </row>
+      <row>
+        <entry align="center">Final Project</entry>
+        <entry align="center">30%</entry>
+      </row> 
+      <row>
+        <entry align="center">Quizes</entry>
+        <entry align="center">20%</entry>
+      </row>
+    </tbody>
+  </tgroup>
+</table>  		
+  			
+  	</para>		
+  	</section>
+  </content>
+  
+</document>

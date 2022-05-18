@@ -1,0 +1,85 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml">
+  <title>Using an Oscilloscope</title>
+  <metadata><md:content-id>undefined</md:content-id><md:title/><md:uuid>164edf84-6f03-4a6c-9a26-15e46a26b708</md:uuid>
+</metadata>
+
+  <content><section id="s1"><title>What is an oscilloscope?</title><para id="p1">
+    An oscilloscope is a device that measures and displays voltages as a time versus voltage graph.
+    The voltage difference between the positive and negative probe leads is measured, buffered, and displayed on the screen as a continuous curve.
+    Because the quality of the scope affects how finely it can resolve changes in time and voltage, very sensitive or small signals may 
+    not be measurable with all oscilloscopes.  
+    For most educational purposes, however, an average oscilloscope will display the signal well enough. 
+    </para><para id="p2">
+    Oscilloscopes are generally used to see if a circuit is performing as expected, 
+    but oscilloscopes are also useful for comparing different signals to each other.  
+    Comparisons and absolute measurements are made by comparing the signal to the graph on the display.       
+    </para></section>
+    <section id="s2"><title> Oscilloscope Controls</title><para id="p3">
+    	The most common oscilloscope controls are for amplitude, frequency, triggering, and signal comparison. </para>
+    	<para id="p4">
+ 	  The amplitude adjustment of an oscilloscope controls how tall a given voltage will appear on the screen.  
+	  Usually the screen will be marked off with horizontal lines to indicate the signal's voltage.  
+	  The absolute voltage per horizontal line is adjustable. 
+	  Thus, if the amplitude is set to 1V/ then each block a signal is tall is 1 V.  
+          The purpose of this adjustment is that you can see a very large or a very small signal on the same screen. 
+ 	</para>
+ 	<para id="p5">
+ 	   The time adjustment of an oscilloscope is how much time will a certain distance across the screen represent.  
+	   The vertical lines most oscilloscopes have are the standard distance 
+	   and the knob or screen indicator will describe how time that distance represents.  
+    	   The purpose of this adjustment is to be able to see a very quickly changing or a slowly changing signal on the same screen. 
+ 	</para>
+ 	<para id="p6">
+ 	Triggering refers to the means by which the oscilloscope selects the exact moment to display on the screen. 
+ 	Because electrical signals often change far faster than a human being could observe them, it is necessary to only 
+ 	display a small sampling of the signal.  
+    	If a signal has a repeating pattern, then the pattern will be repeatedly shown on the screen so that it can be viewed continuously. 
+    	If the signal does not have a regular pattern then the oscilloscope will have trouble choosing the best moment to refresh the display. 
+    	In this case, you will need to set up a trigger so that the oscilloscope can freeze the screen at the right time.  
+    	Trigger controls allow for conditions such as an upward edge of a signal, a voltage glitch, or a voltage threshold. 
+    	Trigger controls can also allow for the display refresh to occur after a time delay from the time of the trigger event.
+    	You should adjust thee triggering of an oscilloscope if the signal seems to be sliding left and right on the display or changing too fast to be seen. 
+	</para><para id="p7">
+	Because many oscilloscopes allow multiple signals to be compared at the same time, it is necessary to have controls to handle the display of these signals. 
+	The most basic control is the ability to turn off the channels that are not in use to avoid useless cluttering of the display screen.
+	Oscilloscopes also allow for two different channels to be compared by displaying the additive difference between them instead of the signals individually. 
+	Usually different signals can also be displayed with different amplitude adjustments, but they require the same frequency adjustment. 
+	Finally, if special triggering conditions are used, the trigger system will ask for which channel should trigger the display. 
+ </para></section>
+<section id="s3"><title> Hazards to Avoid</title>
+
+
+<para id="p8">
+
+Triggering is probably the trickiest skill to acquire. 
+Generally, adjusting the voltage level for the default trigger will fix most triggering problems on analog signals. 
+ For more complicated observations, the most useful tool in triggering is a time delay. 
+ While exact moment of the signal that is interesting to you may not be easy to trigger on, 
+ often this moment occurs at a fixed time offset from an event that is easy to trigger on.
+ Try finding a signal transition or voltage threshold that stabilizes the display, 
+ then adjusting the time delay to observe your signal. 
+ </para> 
+
+
+
+
+
+<para id="p9">
+ 	It is important to ensure that both probes the positive and negative leads of the probe are attached to the device.  
+ 	Usually the negative lead can attach to the ground plane of the device, </para><para id="p10">
+ 	
+	    Oscilloscope probes must be attached to the signal being measured and to the ground plane of the circuit too.  
+    Noise is introduced if both probes are not properly attached to the device.  </para><para id="p11">
+        It is also important to note that the probe itself has a 1M ohm resistance.  
+        This means that from most digital circuits, the probe will not draw any significant power.  
+        However if you are trying to measure voltage from a node between two 10M ohm resistors, it would drop the voltage by about half! 
+        The lesson is that you will sometimes need to be aware of how the probe  affects what you are measuring.  Finally the capacitance and inductance of the probe itself can affect finely tuned analog signals.  
+        Very high speed signals (approaching 100MHz) can be very difficult to measure with an oscilloscope. 
+   
+    
+ 	</para>
+</section>
+    
+  </content>
+  
+</document>

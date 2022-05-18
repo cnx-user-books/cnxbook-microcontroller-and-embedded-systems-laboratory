@@ -1,0 +1,151 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml">
+  <title>What is a Microcontroller?</title>
+  <metadata><md:content-id>undefined</md:content-id><md:title/><md:uuid>ec2b1287-e0e3-4387-9bfd-67b4c329bc8b</md:uuid>
+</metadata>
+
+  <content>
+  	<section id="whatis">
+    <para id="par1">
+       Consider the following set of words: microprocessor, microcontroller, processor, digital signal processor, mixed signal processor. In one sense, they are all the same thing - an <term resource="def_ASIC">ASIC</term> that fetches and executes instructions based on input from some user program. These devices do not have a fixed function, but rather are controlled by software. Each of them share certain architecural features that have been developed since <link url="http://www.intel.com">Intel</link> created the first "microprocessor" in 1971. <note type="point of interest" id="idp306624"><label>Point of interest</label>Intel's web site contains an interesting <link url="http://www.intel.com/museum/online/hist_micro/hof/index.htm">history</link> of the microprocessor.</note>
+    </para>
+    
+    <para id="par2">
+    	In the three decades since the invention of the first microprocessor, there has been tremendous development and innovation in this field of engineering. Each of the terms used at the start of this section are correct names for a microprocessor, but they all have different application spaces and fetures. This still leaves us with the question, "What is a microcontroller?"
+	</para>
+	
+	<para id="par3">
+		In truth, this is a bit difficut to pin down, due to the ever-evolving nature of the semiconductor industry. Consider that what we would call today's average microcontroller is oders of magnitude more powerful than the computer used in the <link url="http://www.abc.net.au/science/moon/computer.htm">Apollo Lunar Module</link>. We can make some generalizations, however, that can help us characterize a microcontroller. Typically, these devices reside at what is the "low-end" of computing. This does not, however, mean that microcontrollers are useless. For <term resource="def_embed_sys">embedded systems</term> design, microcontrollers are usually an ideal choice. The following list shows some qualities that define all microprocessors, along with how they specifically define microcontrollers. 
+	</para>
+    
+    <para id="par4">
+    	<list id="list1_par4">
+    		<title>Some Common Processor Charateristics</title>
+    		<item><term>Cost</term>: The cost of the part. Microcontrollers are usually very cheap, sometimes even less than $1 each.</item>
+			<item><term>Speed</term>: The frequency (speed) of the system clock, often stated in <term resource="def_hertz">megahertz</term> (MHz) or <term resource="def_hertz">gigahertz</term> (GHz). Microcontrollers are typically slow, less than 20MHz.</item>
+			<item><term>Power</term>: The power dissapation of a system, measured in <term resource="def_watt">Watts</term>. Microcontrollers are almost always "low-power."</item>
+			<item><term>Bits</term>: This usually means the number of bits that can be processed at one time by each instruction (e.g. 8-bit, 16-bit, 32-bit, etc...). Microcontrollers are almost always 8-bit or maybe 16-bit devices.</item>
+			<item><term>Memory</term>: Most processors have some amount of storage on the device for data and program instructions. In computing systems, memory is often hierarchical, so on-chip memory can serve different purposes. Microcontrollers typically have a limited amount of memory, less than 1MByte total.</item>
+			<item><term>Input/Output (I/O)</term>: All processors have some means of getting data in and out of the chip. In the physical sense, this relates to metal pins on the part package which are used to connect to other circuitry in the system. Microcontrollers usually have just a few I/O pins, as few as 8 or as many as 100. Larger processors, such as the ones founds in a typical PC, will typically have hundreds of pins.</item>
+    	</list>
+    	<note type="note" id="idp1352672">Some of the characteristics listed above are interdependent. For example, the greater number of pins a particular part has, the more complicated the packaging will need to be, which will probably cost more.</note>
+
+The figure below shows a photo of a modern microcontroller that meets all of these criteria.
+
+	<figure id="fig_MSP430">
+  	<title>Texas Instruments MSP430F169 16-bit Microcontroller</title>
+  	<media id="idm8337376" alt=""><image src="../../media/MSP430F169.jpg" mime-type="image/jpeg"/></media>
+  	<caption>
+    	The TI MSP430F169 meets the criteria we listed above and is a good example of a modern microcontroller.
+  	</caption>
+	</figure>
+    </para>
+    
+    <para id="par5">
+    	As a last excercise, it is useful to compare different types of processors to see the tremendous amount of variety available. The following table shows a selection of modern processors and some numbers related to the features listed above. It is clear that there are tradeoffs to be made in choosing the right part for the design at hand, and part of being a good engineer is being able to do this well.
+
+    </para>
+
+      <table frame="all" id="processors" summary="">
+	<title>Comparisson of Modern Processors</title>
+	<tgroup cols="9">
+	  <colspec colwidth="*"/>
+	  <colspec colwidth="*"/>
+	  <colspec colwidth="*"/>
+	  <colspec colwidth="*"/>
+	  <colspec colwidth="*"/>
+	  <colspec colwidth="*"/>
+	  <colspec colwidth="*"/>
+	  <colspec colwidth="*"/>
+	  <colspec colwidth="*"/>
+	  <thead>
+	    <row>
+	      <entry>Processor</entry>
+	      <entry>Manufacturer</entry>
+	      <entry>Cost</entry>
+	      <entry>Speed</entry>
+	      <entry>Power</entry>
+	      <entry>Bits</entry>
+	      <entry>On-Chip Memory</entry>
+	      <entry>Off-Chip Memory</entry>
+	      <entry>Package Pins</entry>
+	    </row>
+	  </thead>
+	  <tbody>
+	    <row>
+	      <entry align="center">MSP430F169</entry>
+	      <entry align="center">Texas Instruments</entry>
+	      <entry align="center">$1 - $10</entry>
+	      <entry align="center">8 MHz</entry>
+	      <entry align="center">~5 mW</entry>
+	      <entry align="center">16-bit</entry>
+	      <entry align="center">1 - 62 KByte</entry>
+	      <entry align="center">N/A</entry>
+	      <entry align="center">20-100</entry>
+	    </row>
+	    <row>
+	      <entry align="center">Pentium II</entry>
+	      <entry align="center">Intel</entry>
+	      <entry align="center">~$65</entry>
+	      <entry align="center">333 MHz</entry>
+	      <entry align="center">~25 W</entry>
+	      <entry align="center">32-bit</entry>
+	      <entry align="center">548 KByte</entry>
+	      <entry align="center">4 GByte</entry>
+	      <entry align="center">615</entry>
+	    </row>
+	    <row>
+	      <entry align="center">TMS320C6416</entry>
+	      <entry align="center">Texas Instruments</entry>
+	      <entry align="center">~$300</entry>
+	      <entry align="center">700 MHz</entry>
+	      <entry align="center">~1.5 W</entry>
+	      <entry align="center">16/32-bit</entry>
+	      <entry align="center">1 MByte</entry>
+	      <entry align="center">1.28 GByte</entry>
+	      <entry align="center">532</entry>
+	    </row>
+	    <row>
+	      <entry align="center">PowerPC 970</entry>
+	      <entry align="center">IBM</entry>
+	      <entry align="center">N/A</entry>
+	      <entry align="center">1.8 GHz</entry>
+	      <entry align="center">~42 W</entry>
+	      <entry align="center">64-bit</entry>
+	      <entry align="center">608 KByte</entry>
+	      <entry align="center">8 GByte</entry>
+	      <entry align="center">576</entry>
+	    </row>
+	  </tbody>
+    	</tgroup>
+      </table>
+    
+    </section>   
+  </content>
+  <glossary>
+  	<definition id="def_ASIC">
+  		<term>ASIC</term>
+  		<meaning id="idp5931776">Application Specific Integrated Circuit</meaning>
+  	</definition>
+  	<definition id="def_embed_sys">
+  		<term>embedded system</term>
+  		<meaning id="idm255840">A self contained electronic control system, generally with limited user input/output.
+			<note type="example" id="idm7756592"><label>Example</label>A traffic light control system is a good example of an embedded system. The system is self-contained and controls the flow of vehicles at an intersection. Users (pedestrians, bicyclists and car drivers) interact with the system in a limited manner. There may be sensors that detect the presence of vehicles and buttons for pedestrians to push when they want to cross the intersection. The traffic lights output the "state" of the system and inform the users of the actions they must take.</note>
+			<note type="opinion" id="idm7730576"><label>Opinion</label>The best desinged embedded systems are those that are unobtrusive to the user. That is, they require little user interaction and, for the most part, are "invisible."</note>
+		</meaning>
+	</definition>
+	<definition id="def_hertz">
+		<term>Hertz</term>
+			<meaning id="idp2457168">A unit of measurement for frequency, abbreviated Hz, denoting the number of cycles per second. 1 Hz = 1 cycle/second. For a more detailed explanation of frequency, see the following <link document="m11477">module</link>.</meaning>
+			<example id="def_hertz_ex1">
+				<para id="def_hertz_ex1_par1"> 1 megahertz (MHz) = 1,000,000 cycles/second.</para>
+			</example>
+			<example id="def_hertz_ex2">
+				<para id="def_hertz_ex2_par1"> 1 gigahertz (GHz) = 1,000,000,000 cycles/second.</para>
+			</example>
+	</definition>
+	<definition id="def_watt">
+		<term>Watt</term>
+			<meaning id="idm8330864">A unit of measurement for power, abbreviated W, denoting the amount of energy (in joules) per second. 1 W = 1 joule/second.</meaning>
+	</definition>
+  </glossary>
+</document>

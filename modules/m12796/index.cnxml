@@ -1,0 +1,100 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml">
+  <title>The MSP430F16x Lite Development Board</title>
+  <metadata><md:content-id>undefined</md:content-id><md:title/><md:uuid>e67ea6d9-c051-4915-b4e5-8b44edc4aa50</md:uuid>
+</metadata>
+
+
+   <content>
+    <section id="intro">
+    <title>Overview</title>
+      <para id="par_intro_1">
+        This module describes a full-featured development board for the <link url="http://www.ti.com">Texas Instruments MSP430F16x</link> series of mixed-signal microprocessors. This hardware system was designed to allow students or engineers to fully exercise and explore the capabilities of the MSP430 microcontroller.
+      </para>
+
+      <para id="par_intro_2">
+        This module is meant to serve as a general technical overview and instruction manual for the development board. The two pictures below show a general block diagram of the development system and a picture of the board that highlights some of the major peripherals.
+      </para>
+
+      <figure id="fig_block_diagram">
+      <title>MSP430F16x Lite Development Board Block Diagram</title>
+        <media id="idm9516432" alt=""><image src="../../media/lite_block_diagram.gif" mime-type="image/gif"/></media>
+        <caption>A simplified system block diagram for the MSP430F16x Lite Development Board.</caption>
+      </figure>
+
+      <figure id="fig_photo">
+      <title>MSP430F16x Development Board</title>
+        <media id="idm8208224" alt=""><image src="../../media/board_layout_3.gif" mime-type="image/gif"/></media>
+        <caption>A photo of the MSP430F16x Lite Development Board with major peripherals highlighted.   You may verify the <link url="http://koala.ece.rice.edu/elec226/LiteBoardPinout.htm">Lite Board Pinout here.</link></caption> 
+      </figure>
+    </section>
+
+  <section id="features">
+  <title>System Features Overview</title>
+    <para id="par_overview_1">
+      The MSP430F16x Lite development board is a streamlined version of the <link document="m12396">MSP430F16x Deluxe Development Board</link>. It allows for testing and evaluation of the full capabilities of the MSP430 line of processors, yet has been reduced in cost and power consumption.
+      <list id="list_features" list-type="bulleted">
+      <title>MSP430F16x Lite Development Board Features List</title>
+        <item>Digital Section
+          <list id="list_features_digital" list-type="bulleted">
+            <item><link url="http://www.ti.com">Texas Instruments MSP430F16x</link> MSP430F16x (1611 or 169) 16-bit microcontroller.
+              <list id="list_features_proc" list-type="bulleted">
+                <item>48KB of flash code memory and 10KB of SRAM data with the MSP430F1611.</item>
+                <item>60KB of flash code memory and 2KB of SRAM data with the MSP430F169.</item>
+              </list>
+            </item>
+            <item>Embedded <link url="http://www.rowley.co.uk">USB CrossConnect JTAG Emulator</link>.</item>
+            <item>RS-232 Serial PC Interface</item>
+            <item>Up to 16 User-Accessible Digital I/Os</item>
+            <item>Single 7-Segment Display</item>
+            <item>2 Debounced User Pushbuttons with Interrupt Capability</item>
+            <item>3 User LEDs</item>
+            <item>System Current Measurement</item>
+          </list>
+        </item>
+      </list>
+    </para>
+  </section>
+
+
+  <section id="supplemental">
+  <title>Supplemental Documents</title>
+
+    <section id="s0">
+    <title>MSP430F16x Lite Development Board Schematics</title>
+      <list id="l0">
+        <item><link resource="msp430f16x_lite.pdf">Board Schematics</link>:  The schematics contain all pinouts, header information, and connections between devices on the ELEC226 board.</item>
+      </list>  
+    </section>
+
+    <section id="s1">
+    <title>MSP430F16x -  Mixed Signal Microcontroller</title>
+      <list id="p2a">
+        <item><link url="http://focus.ti.com/lit/ds/symlink/msp430f169.pdf">MSP430F169: Mixed Signal Microcontroller Datasheet</link></item>
+        <item><link url="http://focus.ti.com/lit/ug/slau049e/slau049e.pdf">MSP430x1xx Family User's Guide</link>: The User's Guide discusses modules and peripherals of the MSP430x1xx family of devices.  This may be the most useful reference for programming the MSP430.</item>
+      </list>
+    </section>
+    
+    
+    <section id="s3">
+    <title>JTAG &amp; CrossConnect</title>
+      <list id="l3">
+        <item><link url="http://direct.xilinx.com/bvdocs/publications/ds023.pdf">Xilinx PLD (XCR3032XL)</link>: Some signals are routed through the PLD in order to change the mapping of the connected peripheral.  The current mapping is shown in the picture above, however, if they are not accurate, you may verify the <link url="http://koala.ece.rice.edu/elec226/LiteBoardPinout.htm">Lite Board Pinout here.</link></item>
+        <item><link url="http://www.silabs.com/products/pdf/C8051F320_short.pdf">USB interface MCU (C8051F320) Datasheet</link></item>
+        <item><link url="http://pdfserv.maxim-ic.com/en/ds/MAX603-MAX604.pdf">500mA Linear Regulator (MAX604CSA) Datasheet</link></item>
+      </list>
+    </section>
+
+    <section id="s4">
+    <title>RS-232</title>
+      <list id="l4">
+        <item><link url="http://pdfserv.maxim-ic.com/en/ds/MAX3221-MAX3243.pdf">RS-232 Transceiver (MAX3221CUE) Datasheet</link></item>
+    </list>
+    </section>
+
+    
+    
+  </section>
+  </content>
+
+  
+</document>

@@ -1,0 +1,127 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml">
+	<title>Introduction to Programming the MSP430</title>
+	<metadata><md:content-id>undefined</md:content-id><md:title/><md:uuid>d9626a24-8ab9-4890-bdf4-405201a7fe77</md:uuid>
+</metadata>
+<content>
+<section id="s1">
+<title>Configuring Digital I/O</title>
+<para id="p1">Digital I/O such as the LEDs and pushbuttons are configured by modifying a several registers pertaining to the port that they are attached to.  Check the datasheet to find the respective port number of the peripheral you which to control.  For more detailed information about Digital I/O on the MSP430 check <term>Chapter 9: Digital I/O</term> of the <link url="http://focus.ti.com/lit/ug/slau049e/slau049e.pdf">User’s Guide</link>.</para>
+
+<para id="p2">
+First, we must assign the direction of the corresponding I/O pins.  This is done by setting the direction register, <term>PxDIR</term>, with the appropriate bit.  By default, all I/O pins are assigned to be inputs.  
+<list list-type="bulleted" id="element-489">
+<item>Bit = 0: The port pin is switched to input direction. </item>
+<item>Bit = 1: The port pin is switched to output direction.</item>
+</list>
+</para>
+<para id="p3">On the <link document="m12796">MSP430F16x Lite Development Board</link> the three LEDs are located on Ports 1 and 2.  The port number will correspond the to x value in registers such as <term>PxIN</term>, <term>PxOUT</term>, or <term>PxDIR</term>.  Therefore, if we wanted to define the direction of a pin on port 2 we would write to <term>P2DIR</term>.
+			</para><exercise id="ex1">
+				<problem id="idp5111056">
+					<para id="p4">How do we switch the three pins (P1.7, P2.2, and P2.3) corresponding to the LEDs to be outputs?
+          </para>
+				</problem>
+				<solution id="idp6158640">
+					<para id="p5"><code display="block" id="idm6841456">
+    P1DIR |= 0x80;
+    P2DIR |= 0x0C;
+
+</code>
+
+0x0C in hex is equivalent to 0b00001100 in binary.   Similarly, 0x80 = 0b10000000. You may refer to the module about <link document="m12796">Binary and Hexadecimal Notation</link>  to learn how to do this conversion or you could use the Windows Calculator (<term>Start</term> -&gt; <term> Run... </term> -&gt; <term>Calc</term>) to do it much more quickly. We can now easily see that P1.7, P2.2, and P2.3 are set to 1 which makes them outputs.   <note type="HINT" id="idp2184256"><label>HINT</label>It is helpful to use <code>|=</code> instead of <code>=</code> because it won’t overwrite bits that are not set to 1 in the mask.</note>
+          </para>
+				</solution>
+			</exercise>
+			<para id="p6">
+        Output pins may be toggled using the <term>PxOUT</term> register.  LEDs are turned on by setting their corresponding register bits low.  
+      </para>
+			<exercise id="ex2">
+				<problem id="idp5909360">
+					<para id="p7">
+            How would be turn on the three LEDs without modifying any other bits in the register?
+          </para>
+				</problem>
+				<solution id="idm7449408">
+					<para id="p8a"><code display="block" id="idp1667472">
+    P1DIR &amp;= ~0x80;
+    P2DIR &amp;= ~0x0C;
+
+</code>
+
+This will turn on all three LEDs assuming they had already been set to be outputs.<note id="idp31488">~0x0C = 0xF3 = 0b11110011</note>
+					</para>
+				</solution>
+			</exercise>
+			<para id="p9a">
+        Since all I/O registers are set as inputs by default we do not have to set the direction of the push buttons.  Each time an input is toggled a bit in <term>PxIN</term> will be modified. 
+      </para>
+			<exercise id="ex3">
+				<problem id="idp1927552">
+					<para id="p8">
+           Write a couple different polling schemes for detecting if BUTTON_1 was pushed.  <note id="idp160560">PxIN bits corresponding to the push buttons are high by default (i.e. the button is not depressed.)</note>
+					</para>
+				</problem>
+				<solution id="idm453488">
+					<para id="p9"><code>    while(!(P2IN&amp;0x01));</code>  or <code>if (!(P2IN&amp;0x01));</code>
+					</para>
+				</solution>
+			</exercise>
+			<exercise id="ex5">
+				<problem id="idm6814928">
+					<para id="p10">
+            Now we will write a program that lights up one of the LEDs and will light up a different LED once BUTTON_2 is pressed.  The LED sequence should go as follows: red, green, yellow, repeat. 
+          </para>
+					<para id="p11">
+            Create a new project in CrossStudio and make sure you select the correct processor, the MSP430F169.
+          </para>
+					<para id="p12">
+            Include the correct header file by adding the following line at the top of the main.c file. 
+            <code display="block" id="idm737152">#include &lt;msp430x16x.h&gt; </code>
+					</para>
+					<para id="p13">
+            It may be helpful to define some macros for commonly used register values.  For example, if we add <code>#define red_on ~0x04</code> to the top of the file (after the <code>#include</code>) we may call <code>red_on</code> every time we wanted the value ~0x04.  Similarly, you may write a function to turn a light on or off.
+          </para>
+					<para id="p14">
+            Complete the program.
+          </para>
+				</problem>
+				<solution id="idp739824">
+					<para id="p15"><code display="block" id="idp4154864">      #include &lt;msp430x16x.h&gt;
+      
+      void main(void)
+      {
+        P1DIR |= 0x80;              // Set P1.7 as an output pin
+        P2DIR |= 0x0C;              // Set P2.2 &amp; P2.3 as output pins
+      
+        P1OUT |= 0x80;
+        P2OUT |= 0x0C;              // Turn off all LEDs
+      
+        while(1){
+          P1OUT |= 0x80;            // turn off yellow LED
+          P2OUT &amp;= ~0x04;           // turn on red LED
+      
+          while(P2IN&amp;0x02);         // waits here while button isn't depressed
+          while(!(P2IN&amp;0x02));      // waits here while button is pushed in
+      
+          P2OUT |= 0x04;            // turn off red LED
+          P2OUT &amp;= ~0x08;           // turn on green LED
+      
+          while(P2IN&amp;0x02);         
+          while(!(P2IN&amp;0x02));      
+      
+          P2OUT |= 0x08;            // turn off green LED
+          P1OUT &amp;= ~0x80;           // turn on yellow LED
+      
+          while((P2IN&amp;0x02));       
+          while(!(P2IN&amp;0x02));      
+        }
+      }
+
+
+            
+						</code>
+					</para>
+				</solution>
+			</exercise>
+		</section>
+	</content>
+</document>

@@ -1,0 +1,55 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml">
+  <title>Introduction to Assembly Language</title>
+  <metadata><md:content-id>undefined</md:content-id><md:title/><md:uuid>0d2a92e1-8c5a-4d06-97e1-ef50486aa0aa</md:uuid>
+</metadata>
+  <content>
+<section id="s1">
+<title>Assembly Language</title>
+
+    <para id="delete_me"><term>Assembly language</term>, commonly referred to as assembly, is a more human readable form of machine language.  Every computer architecture uses its own assembly language.  So processors using an architecture based on the x86, PowerPC, or TI DSP will each use their own language.  <term>Machine language</term> is the pattern of bits encoding a  processor's operations.  Assembly will replace those raw bits with a more readable symbols call <term>mnemonics</term>.</para><para id="element-276"> For example, the following code is a single operation in machine language. <code display="block" id="idp1990624">
+    0001110010000110
+
+</code>
+For practical reasons, a programmer would rather use the equivalent assembly representation for the previous operation.
+<code display="block" id="idp3286544">
+    ADD	R6,R2,R6	; Add $R2 to $R6
+
+</code>
+This is a typical line of assembly.  The <term>op code</term> <code>ADD</code> instructs the processor to add the <term>operands</term> <code>R2</code> and <code>R6</code>, which are the contents of register R2 to register R6, and store the results in register R6.  The "<code>;</code>" indicates that everything after that point is a comment, and is not used by the system.</para>
+
+
+<para id="element-191"> Assembly has a one-to-one mapping to machine language.  Therefore, each line of assembly corresponds to an operation that can be completed by the processor.  This is not the case with high-level languages.  The <term>assembler</term> is responsible for the translation from assembly to machine language.  The reverse operation is completed by the <term>dissasembler</term>.</para><para id="element-820"> Assembly instructions are very simple, unlike high-level languages.  Often they only accomplish a single operation. Functions that are more complex must be built up out of smaller ones.  </para>
+<para id="element-760">The following are common types of instructions:
+<list list-type="bulleted" id="element-300">
+<item>Moves:<list list-type="bulleted" id="element-301"><item>Set a register to a fixed constant value</item>
+<item>Move data from a memory location to a register (a load) or move data from a register to a memory location (a store). All data must be fetched from memory before a computation may be performed.  Similarly, results must be stored in memory after results have been calculated. </item>
+<item>Read and write data from hardware devices and peripherals</item>
+</list></item>
+</list>   
+<list list-type="bulleted" id="element-302">
+<item>Computation:
+<list list-type="bulleted" id="element-303"><item>Add, subtract, multiply, or divide.   Typically, the values of two registers are used as parameters and results are placed in a register</item>
+<item>Perform bitwise operations, taking the conjunction/disjunction (and/or) of corresponding bits in a pair of registers, or the negation (not) of each bit in a register</item>
+<item>Compare two values in registers (&gt;, &lt; , &gt;=, or &lt;=)</item>
+</list></item>
+</list>
+<list list-type="bulleted" id="element-304">
+<item>Control Flow:
+<list list-type="bulleted" id="element-305"><item>Jump to another location in the program and execute instructions there</item>
+<item>Jump (branch) to another location if a certain condition holds</item>
+<item>Jump to another location, but save the location of the next instruction as a point to return to (a call)</item>
+</list></item>
+</list>
+</para>
+
+</section>
+<section id="s2">
+<title>Advantages of Assembly</title>
+<para id="p12">The greatest advantage of assembly programming is raw speed.  A diligent programmer should be able to optimize a piece of code to the minimum number of operations required.  Less waste will be produced by extraneous instructions.  However, in most cases, it takes an in-depth knowledge of the processor's instruction set in order to produce better code than the compiler writer does.  Compilers are written in order to optimized your code as much as possible, and in general, it is hard to write more efficient code than it.</para><para id="element-114">Low-level programming is simply easier to do with assembly. Some system-dependent tasks performed by operating systems simply cannot be expressed in high-level languages. Assembly is often used in writing <term>device drivers</term>, the low level code that is responsible for the interaction between the operating system and the hardware.</para><para id="element-340"> Processors in the embedded space, such as <link url="http://www.ti.com">TI's MSP430</link>, have the potential for the greatest gain in using assembly. These systems have very limited computational resources and assembly allows the maximum functionality from these processors.  However, as technology is advancing, even the lowest power microcontroller is able to become more powerful for the same low cost.
+</para>
+</section>
+
+
+  </content>
+  
+</document>

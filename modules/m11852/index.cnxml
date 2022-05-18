@@ -1,0 +1,122 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml">
+  <title>Lab 2: C and Macros with Texas Instruments' MSP430</title>
+  <metadata><md:content-id>undefined</md:content-id><md:title/><md:uuid>43252756-19ba-4236-8d99-ba240d516e3c</md:uuid>
+</metadata>
+  <content>
+    <para id="C1">
+With the MSP430, With the MSP430, the primary difference between "normal" C and programming C in the embedded space is that you will need to write to registers directly to control the operation of the processor.  Fortunately, the groundwork has already been laid for you to make this easier.  All of the registers in the MSP430 have been mapped to macros by Texas Instruments.  Additionally, the important bit combinations for each of these registers have macros that use the same naming convention as the user’s guide.  Other differences from the C used on most platforms include:
+<list id="differences" list-type="bulleted">
+        <item>Most registers in the MSP are 16 bits long, so an <code>int</code> value is 2 bytes (16 bits) long. </item>
+        <item>Writing to registers is not always like writing to a variable because the register may change without your specific orders.  It is always important to read the register description to see what the register does.</item>
+        <item>The watchdog timer will automatically reset the MSP unless you set the register not to.</item>
+        <item>There is only a limited "standard out" system.  Standard out will typically print results to your computer screen.  The board you have been provided does have 7 segment displays and LED’s but this does not allow for a full debugging display that a PC would have. </item>
+        <item>Floating-point operations cannot be efficiently performed.  In general, you should avoid floating point decimal calculations on the MSP because it does not have special hardware to support the complicated algorithms used.</item>
+      </list>
+    </para>
+    
+    <exercise id="exercise2.1">
+      <problem id="idp1478304">
+<title>Code Review</title>
+        <para id="breakpoints8">In this exercise, you may want to use some of the debugging tools to help you understand what the code is doing.  You  may use any of the following items:
+
+<list list-type="bulleted" id="element-642">
+<item><term>Breakpoints</term> - Left click on the arrow next to the line of code you want to break on.  The program will stop when it gets to this point and you are able to view the contents of memory and current variable contents.</item>
+
+<item><term>Watch Window</term> - Right click on the variable you want to monitor and select <term>Add "variable" to Watch</term>.  Variables that have been modified since the last time that the program was stopped will turn red.</item>
+
+<item><term>Locals Window</term> - From the <term>View</term> menu, click <term>Other Windows</term> then <term>Locals</term>.  The Locals Window will automatically display the values for all local variables that are currently being used.  Variables are considered "local" if they are within the function that is currently being processed.</item>
+</list>
+
+Start a new project.  Cut and paste the following code into main.c: 
+
+
+<code display="block" id="idm7654784">
+    #include &lt;msp430x16x.h&gt;
+    #include &lt;__cross_studio_io.h&gt;
+
+    void main(void){
+      int i,j,tmp;
+      int a[20]={0x000C,0x0C62,0x0180,0x0D4A,0x00F0,0x0CCF,0x0C35,0x096E,0x02E4,
+      0x0BDB,0x0788,0x0AD7,0x0AC9,0x0D06,0x00EB,0x05CC,0x0AE3,0x05B7,0x001D,0x0000};
+
+      for (i=0; i&lt;19; i++){
+        for (j=0; j&lt;9-i; j++){
+          if (a[j+1] &lt; a[j]) {
+            tmp = a[j];
+            a[j] = a[j+1];
+            a[j+1] = tmp;
+          }
+        }
+      }
+      while(1);
+    }
+</code>
+
+
+<list id="brkpoint" list-type="enumerated">
+<item>Explain what this program is doing.</item>
+
+<item>Use any of the methods listed above to show the updated array.  What is the final result?</item>
+            
+<item>Modify the code so that it prints the final version of the array to standard out (the display window).  What are the drawbacks and benefits of using this over setting a breakpoint?</item></list>
+
+<note type="HINT" id="idp2582080"><label>HINT</label>To use the standard out, add the following line to the top of your code: <code display="block" id="idm7214064">#include &lt;__cross_studio_io.h&gt;</code> 
+
+The <code>debug_printf()</code> function will print to standard out.  For example, <code>debug_printf("x equals %d\n", x);</code> will print out the value of x to the window.  The <code>%d</code> means that x is a number, and <code>\n</code> will produce a line break.</note>
+
+        </para>
+      </problem>
+    </exercise>
+    <exercise id="exercise2.3">
+          <problem id="idp2363440">
+<title>Functions</title>
+            <para id="pro2">Multiplications and division are very complex operations to do on any microprocessor.  The operations should be avoided if possible or should be replaced with simpler, equivalent operations.  
+    
+<list id="syntax1" list-type="enumerated">
+
+<item>What do the operators &lt;&lt; and &gt;&gt; do?</item>
+<item>How could you use these operators to perform multiplication and division?</item>
+<item>Write the function <code>multiply(int x, int y)</code> that takes parameter <code>x</code> and multiplies it by <code>y</code> by using a bit shift.  It must return an <code>int</code>. For symplicity, it is OK to assume that <code>y</code> is a power of 2.</item>
+<item>Next, write the function <code>divide(int x, int y)</code> that takes parameter <code>x</code> and divides it by <code>y</code> by using a bit shift.  It must also return an <code>int</code>.</item>
+
+              </list>
+            </para>
+          </problem>
+    </exercise>
+    
+    <exercise id="exercise2.2">
+      <problem id="idm911504">
+<title>Digital I/O Registers</title>
+        <para id="pro1">
+Open the file <term>msp430x16x.h</term> which should be located in <code>C:\Program Files\Rowley Associates Limited\CrossWorks MSP430 x.x.x\include</code>.  This file contains the macros and register definitions for the MSP430F169 we use in this class.  Using the <link resource="usersguide.pdf">MSP430 User’s Guide</link> and the msp430x16x.h file, please answer the following questions.
+<list id="questions1" list-type="enumerated"><item>The Watchdog Timer will automatically reset the hardware if it isn't periodically reset or disabled entirely.  Usually, we will simply disable it.  It can be disabled by writing to the <code>WDTPW</code> (watchdog timer password) and <code>WDTHOLD</code> (watchdog timer hold) section of the Watchdog Timer Control Register (<code>WDTCTL</code>).  Refer to <term>Section 10.3</term> of the <link resource="usersguide.pdf">User's Guide</link> for more information.  Find the macros for this register in the msp430x16x.h file.  How are they different from their description in the User's Guide?   Finally, write the C code required to disable it. </item>
+            <item>What are the differences among P1DIR, P1SEL, P1OUT, P1IN?</item>
+            <item>Some port pins have multiple functions to output and it is up to the user to select the appropriate signal.  Write some code that would select the alternate function of P2.2 (pin 2 of port 2).  What will the result be on our hardware? </item></list>
+        </para>
+      </problem>
+    </exercise>
+    
+    
+    
+    <exercise id="exercise2.4">
+      <problem id="idp311568">
+<title>Programming Digital I/O</title>
+        <para id="pro3">
+Write a program to do the following:
+<list id="wripro" list-type="enumerated"><item>When the program starts all three LED’s should light up for about a second then turn off. </item>
+
+<item>	Next, the green LED should blink for about 1/2 second on, 1/2 second off while the other two LED’s are off.  Use long for-loops to generate a delay.</item>
+<item>Pushing Button 1 should cause the green LED to stop blinking and cause the red LED to start the blinking pattern.</item>
+<item>Pushing the button again should continue the pattern with the yellow LED, and pushing it more times should repeat the green, red, yellow pattern.</item>
+<item>The current LED that's blinking should stop as soon as the button is pressed and the next LED should begin immediately.</item>          
+</list>
+
+<note type="HINT" id="idm7056848"><label>HINT</label>
+Make sure you disable the watchdog timer at the very beginning of the program.  Refer to <link document="m12145">Introduction to programming the MSP430</link> to learn how to enable and use the pushbuttons and LEDs.
+          </note>
+You will need to demonstrate this code to the labbie, turn in a hard copy of your program, and post it online.  
+</para>
+      </problem>
+    </exercise>
+  </content>
+</document>

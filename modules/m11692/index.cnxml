@@ -1,0 +1,113 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml">
+  <title>Introduction to CrossStudio MSP430 IDE</title>
+  <metadata><md:content-id>undefined</md:content-id><md:title/><md:uuid>8328a9e4-49b0-4b66-b2f4-8efa48345c1e</md:uuid>
+</metadata>
+
+  <content>
+    <figure id="screenshot">
+      <title> CrossStudio MSP430 IDE </title>
+      <media id="idp5128256" alt=""><image src="../../media/screenshot.jpg" mime-type="image/jpeg"/></media>
+    </figure>
+
+    <section id="motivations">
+    <title>Motivations</title>
+    <para id="Motivations">
+    To develop applications to run on the MSP430 chip, we use the CrossWorks MSP430 IDE (integrated development environment).  Not only does this application provide a powerful code editor, but it also allows a simple one-click deployment of the source code onto the MSP chip using USB as well as hardware debugging capabilities that allow you to trace through actual stack calls.  This module is intended to get your started using CrossWorks quickly so that you may begin building your own MSP430 applications!    
+    </para>   
+    </section>
+
+    <section id="createproject">
+    <title>Create a Project</title>
+    <para id="createwizard">
+The very first thing you must do before you can start downloading any code onto the MSP, is to create a project in CrossStudio that will contain all of the relevant files for your application.  Select File-&gt;New-&gt;New Project and the New Project dialog will appear.  By default, the Standard Projects project type will be selected in the left window pane and you will see templates such as Project Wizard, Executable, Library, etc.  Select the Project Wizard template within the Standard Projects project type.  Enter in a name in the text field and make sure the location field is set to the correct directory for this project.   
+    <figure id="wizard">
+      <title> Project Creation Wizard</title>
+      <media id="idm8405136" alt=""><image src="../../media/wizard.jpg" mime-type="image/jpeg"/></media>
+      <caption>
+      In the Standard Projects project type folder, select the Project Wizard template to create the workspace for your application.
+      </caption>
+    </figure>
+
+    If you have an existing solution loaded, then you can put the project into that solution or create a new solution.  Don't worry if you do not know what a solution is, as it will be covered later in this tutorial.  Click OK to create the project.  
+    </para> 
+
+    <para id="addwizard">
+      The project wizard will now guide you through creating your project.  You will see a dialog box in which you need to customize the project based on the processor and project type.  
+      <figure id="addproj">
+      <title> Adding Your Project </title>
+      <media id="idm1746944" alt=""><image src="../../media/addproj169.jpg" mime-type="image/jpeg"/></media>
+      <caption>
+      Make sure you choose the right processor for your application!  Here, I've selected the MSP430F169 since that is the chip I plan to use.     
+      </caption>
+    </figure>
+    Click next and finish creating the project.  The project explorer will now show the solution and the project you have just created.  You'll notice that the project name is highlighted -- this is now the active project and subsequent build and debug operations will use this project.  If you have more than one project then you can set the active project using the combo box on the build toolbar or the context menu of the project explorer.  
+    </para>
+    </section>
+
+    <section id="addfiles">
+    <title>Adding Files to the Project</title>
+    <para id="addfilesproj">
+    If your project consists of more than one file, you will need to add it to the current project.  To create a new file, go to Project-&gt;Add New File...  If the file already exists, then choose <term>Project</term>-&gt;<term>Add Existing File</term>...
+    </para>
+    </section>
+
+     <section id="buildsolution">
+    <title>Building the Solution</title>
+    <para id="buildsoln">
+    The CrossStudio compiler allows you to have multiple projects in different configurations all residing in a given solution.  Usually, the projects differentiate themselves as a debug build or as a release build.  Debug builds will have different compiler options.  Configurations can also be used to produce variants of software.  For example, a library could be built for several different hardware variants.  Note that configurationsn inherit properties from other configurations, enabling a single point of change for definitions that are common to configurations.  A particular proplerty can be overriden in a particular configuration to enable configuration specific settings.  </para>
+
+    <para id="buildsoln2">
+    Upon creation of a solution, the Debug and Release configurations are generated automatically.  
+    </para>
+    </section>
+
+
+    <section id="heapsize">
+    <title>Setting Heap Size</title>
+    <para id="setheapsize">
+    The next important step that you must take is to make sure that there is heap available for the project to use.  By default, there is no heap allocated.  If your program will be mallocing and freeing memory dynamically, then you will need to change the heap size to a more appropriate value.  To do this, choose menu item <term>Project</term>-&gt;<term>Properties</term>...  You will then see a dialog box with various project options.  In the left pane, click on your solution and then the linker tab on the right pane.  There will be a Heap Size category that you can click on to change.  The MSP430 has up to 2000 bytes of RAM that can be allocated for the heap.  
+     <figure id="solutionheap">
+      <title> Changing the Heap Size</title>
+      <media id="idm815120" alt=""><image src="../../media/solutionheap.jpg" mime-type="image/jpeg"/></media>
+      <caption>
+      By default, the heap size is set to zero.  Here, I have increased it to 600 bytes.  
+      </caption>
+    </figure>
+
+The heap size is an option that is set for a given solution and thus applies to all projects that are contained within a solution.  Keep this in mind if your solution contains multiple projects.  
+
+    </para>
+    </section>
+
+    <section id="connecttarget">
+    <title>Connect to the Target</title>
+    <para id="conntarget">
+      Before any of the code can be executed, you need to first connect to a target.  Make sure the board is connected via USB to the computer..  Then, go to <term>Target</term>-&gt;<term>Connect MSP430 USB CrossConnect</term>.  CrossStudio should be able to connect rather quickly to the MSP.  If the application hangs, then check that the USB connection is secure, that the programming cables are plugged in correctly, and that power is being supplied to the device.  If problems continue, try resetting the device, unplugging everything for awhile, and starting over again.  
+    </para>
+    </section>
+
+    <section id="runprogram">
+    <title>Run Your Program!</title>
+    <para id="startdebug">
+    This is the part you've been waiting for:  actually testing your program!  Use the <term>Debug</term> -&gt; <term>Start Debugging</term> menu item to load the currently active project and set your program running.  You can also set any breakpoints beforehand; by default, there are no breakpoints set by the debugger.   
+    </para>
+
+    <para id="pause">
+      You can pause the debugger when the target is running if you would like to look at the value of certain variables.  Select <term>Debug</term> -&gt; <term>Break</term> and open a watch window to examine the value of certain variables.  It is suggested that you copy the variables you are interested in to temporary global variables.  Because local variables go out of scope, it is uncertain if their correct value is maintained when the debugger is paused.  
+    </para>
+
+    <para id="stop">
+    Debugging can be stopped using <term>Debug</term> -&gt; <term>Stop</term>.  At this point, the watch window will not display your variable values.  At this point, I would suggest that you make any modifications to your program as necessary and restart the debugger from the beginning.  It is possible to resume debugging by using <term>Debug</term> -&gt; <term>Go</term>, but it is not recommended.  
+    </para>
+    </section>
+
+    <section id="go">
+    <title>Good luck!</title>
+    <para id="goodluck">
+    You're all set to start using the CrossStudio compiler to write embedded microcontroller code.      
+    </para>
+    </section>
+
+  </content>
+  
+</document>

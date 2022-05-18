@@ -1,0 +1,167 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:md="http://cnx.rice.edu/mdml">
+  <title>The MSP430F16x Deluxe Development Board</title>
+  <metadata><md:content-id>undefined</md:content-id><md:title/><md:uuid>c0452dee-df3a-441c-a74b-e8ab7bacedda</md:uuid>
+</metadata>
+
+  <content>
+  	<section id="intro">
+  	<title>Overview</title>
+      <para id="par_intro_1">
+      	This module describes a full-featured development board for the <link url="http://www.ti.com">Texas Instruments MSP430F16x</link> series of mixed-signal microprocessors. This hardware system was designed to allow students or engineers to fully excercise and explore the capabilities of the MSP430 microcontroler.
+      </para>
+
+      <para id="par_intro_2">
+      	This module is meant to serve as a general technical overview and instruction manual for the development board. The two pictures below show a general block diagram of the development system and a picture of the board that highlights some of the major peripherals.
+      </para>
+
+	    <figure id="fig_block_diagram">
+	    <title>MSP430F16x Development Board Block Diagram</title>
+	      <media id="idp1232048" alt=""><image src="../../media/msp430f16x_dlx_bd_640.gif" mime-type="image/gif"/></media>
+	      <caption>A simplified system block diagram for the MSP530F16x Deluxe Development Board.</caption>
+	    </figure>
+
+	    <figure id="fig_photo">
+	    <title>MSP430F16x Development Board</title>
+	      <media id="idm10457760" alt=""><image src="../../media/msp430f16x_dlx.jpg" mime-type="image/jpeg" width="640"/></media>
+	      <caption>A Photo MSP530F16x Deluxe Development Board with Major Peripherals Highlighted.</caption>
+	    </figure>
+	  </section>
+
+	<section id="features">
+	<title>System Features Overview</title>
+	  <para id="par_overview_1">
+	    The MSP430F16x deluxe development board was designed to offer acces to a broad range of the peripheral devices available on the MSP430, thus allowing the testing and evaluation of the full capabilities of the MSP430 line of processors.
+	    <list id="list_features" list-type="bulleted">
+	    <title>MSP430F16x Deluxe Development Board Features List</title>
+	      <item>Digital Section
+	        <list id="list_features_digital" list-type="bulleted">
+	 	        <item><link url="http://www.ti.com">Texas Instruments MSP430F16x</link> MSP430F16x (1611 or 169) 16-bit microcontroller.
+	  		      <list id="list_features_proc" list-type="bulleted">
+				        <item>48KB of flash code emory and 10KB of SRAM data with the MSP430F1611.</item>
+				        <item>60KB of flash code emory and 2KB of SRAM data with the MSP430F169.</item>
+			        </list>
+            </item>
+		        <item>Embedded <link url="http://www.rowley.co.uk">USB CrossConnect JTAG Emulator</link>.</item>
+		        <item>RS-232 Serial PC Interface</item>
+		        <item>2MByte SPI DataFlash</item>
+		        <item>10B-T Ethernet</item>
+		        <item>Up to 16 User-Accesible Digital I/Os</item>
+		        <item>Dual 7-Segment Displays</item>
+		        <item>2 Debounced User Pushbuttons with Interrupt Capability</item>
+		        <item>3 User LEDs</item>
+	        </list>
+        </item>
+	      <item>Analog Section
+	        <list id="list_features_analog" list-type="bulleted">
+	    	    <item>Electret Microphone Input</item>
+	    	    <item>4 Amplified Analog Inputs: 100mVpp, 250mVpp, 500mVpp and 1Vpp (amplification can be bypassed for direct acess to the ADC input)</item>
+		        <item>Programmable pre-ADC anti-alias filtering using the MAX7414, a 5th order lowpass Butterworth filter with a tunable
+			      <m:math>
+			        <m:ci>
+			          <m:msub>
+				          <m:mi>f</m:mi>
+				          <m:mn>c</m:mn>
+			          </m:msub>
+			        </m:ci>
+			      </m:math>
+		        from 1Hz to 15kHz.
+	      	  </item>
+	          <item>2 DAC outputs, one with 0.7W amplification to an 8 Ohm Speaker (amplification can be bypassed for direct access to the DAC output)</item>
+		        <item>Programmable post-DAC filtering using the MAX7414</item>
+		        <item>MSP control over the following: pre-ADC and post-DAC filter shutdown, pre-ADC and post-DAC filter
+			        <m:math>
+			          <m:ci>
+			            <m:msub>
+				            <m:mi>f</m:mi>
+				            <m:mn>c</m:mn>
+			            </m:msub>
+			          </m:ci>
+			        </m:math>,
+		          and power amplifier shutdown.</item>
+		        <item>System Current Measurement</item>
+	        </list>
+        </item>
+	    </list>
+	  </para>
+	</section>
+<!--
+	<section id="tech">
+	<name>Technical Description</name>
+	  <para id="blah_1">
+	    Put info here on how the peripherals connect to the MSP, what pins are used, pinouts of the various headers, blah blah blah....
+	  </para>
+
+		<section id="digital_periph">
+		<name>Digital Peripherals</name>
+		  <para id="blah_2">Blah, blah, blah...</para>
+		</section>
+
+		<section id="analog_periph">
+		<name>Analog Peripherals</name>
+		  <para id="blah_3">Blah, blah, blah...</para>
+		</section>
+	</section>
+
+
+-->
+
+	<section id="supplemental">
+	<title>Supplemental Documents</title>
+
+    <section id="s0">
+    <title>MSP430F16x Deluxe Development Board Schematics</title>
+      <list id="l0">
+        <item><link resource="msp430f16x_dlx_schematics.pdf">ELEC226 Schematics</link>:  The schematics contain all pinouts, header information, and connections between devices on the ELEC226 board.</item>
+      </list>  
+    </section>
+
+    <section id="s1">
+    <title>MSP430F16x -  Mixed Signal Microcontroller</title>
+      <list id="p2a">
+        <item><link url="http://focus.ti.com/lit/ds/symlink/msp430f169.pdf">MSP430F169: Mixed Signal Microcontroller Datasheet</link></item>
+        <item><link resource="usersguide.pdf">MSP430x1xx Family User's Guide</link>: The user's guide discusses modules and peripherals of the MSP430x1xx family of devices.  This may be the most useful reference for programming the MSP430.</item>
+      </list>
+    </section>
+    
+    <section id="s2">
+    <title>Analog I/O</title>
+      <list id="l1">
+        <item><link url="http://pdfserv.maxim-ic.com/en/ds/MAX7409-MAX7414.pdf">Analog, Lowpass Filter (MAX7414) Datasheet</link> </item>
+        <item><link url="http://focus.ti.com/lit/ds/symlink/tpa721.pdf">Audio Power Amplifier (TPA721) Datasheet</link></item>
+        <item><link url="http://focus.ti.com/lit/ds/symlink/opa2244.pdf">Op-Amp MicroAmplifier (OPA2244) Datasheet</link></item>
+      </list>
+    </section>
+
+    <section id="s3">
+    <title>JTAG &amp; CrossConnect</title>
+      <list id="l3">
+        <item><link url="http://direct.xilinx.com/bvdocs/publications/ds023.pdf">Xilinx PLD (XCR3032XL) Datasheet</link></item>
+        <item><link url="http://www.silabs.com/products/pdf/C8051F320_short.pdf">USB interface MCU (C8051F320) Datasheet</link></item>
+        <item><link url="http://pdfserv.maxim-ic.com/en/ds/MAX603-MAX604.pdf">500mA Linear Regulator (MAX604CSA) Datasheet</link></item>
+      </list>
+    </section>
+
+    <section id="s4">
+    <title>RS-232</title>
+      <list id="l4">
+        <item><link url="http://pdfserv.maxim-ic.com/en/ds/MAX3221-MAX3243.pdf">RS-232 Transceiver (MAX3221CUE) Datasheet</link></item>
+    </list>
+    </section>
+
+    <section id="s5">
+    <title>16Mbit DataFlash</title>
+      <list id="l5">
+        <item><link url="http://www.atmel.com/dyn/resources/prod_documents/doc2224.pdf">16Mbit DataFlash (AT45DB161B) Datasheet</link></item>
+      </list>
+    </section>
+
+    <section id="s6">
+    <title>Ethernet</title>
+      <list id="l6">
+        <item><link url="http://www.cirrus.com/en/pubs/proDatasheet/cs8900a-4.pdf"> Crystal LAN Embedded Ethernet Controller (CS8900A) Datasheet</link></item>
+      </list>
+    </section>
+    
+	</section>
+  </content>
+</document>

@@ -1,0 +1,58 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml">
+  <title>Real Time</title>
+  <metadata><md:content-id>undefined</md:content-id><md:title/><md:uuid>39849f0d-f4dd-482d-a14c-40730c028335</md:uuid>
+</metadata>
+
+  <content>    
+    <section id="rt">
+    <title>What is Real Time?</title>  
+      <para id="p1">
+The term real time refers to systems whose ability to process data and commands is not only fast enough so as to seem instantaneous (relative to users or systems that rely on it) but who can handle as much data or as many requests as the users and systems are expected to provide.  These two standards for "real time" can be described by as "bandwidth" and "worst case response."  
+      </para>
+      <para id="p2">
+Often, high bandwidth and low latency go hand in hand because expectations of quality in a system extend to both responsiveness and capacity.  Three examples: the real time computer game, the cell phone, and the control systems of a missile.    
+      </para>
+   
+      <section id="bw">
+      <title>Bandwidth</title>
+        <para id="p3">
+Bandwidth is a measure of the amount of data a system can handle on average.  Bandwidth is expressed in hertz or bits per second.  "Bits per second" is the term generally used for computer systems processing data.  Hertz is the term generally used for communications and analog systems.  Actually, the terms refer to the same unit because a "bit" has no unit.  The more bandwidth a device has, the more data it can process per second or the larger the range of frequencies it can support.  If a device does not have sufficient bandwidth, then there are two common ways in which the system can handle the problem.  
+        </para>
+        <para id="p4">
+If the shortage of bandwidth is only temporary, due to a spike in requests or short term complication, then a system may support queuing the data for later processing.  When the input has returned to "normal," the system can use excess bandwidth to catch up.  Being able to support queuing is expensive because extra memory and bandwidth will be required.  
+        </para>
+        <para id="p5">
+If the shortage of bandwidth lasts longer than the system can handle, or if the system cannot handle a shortage at all, then the system will lose the extra bandwidth.  This can mean that frequencies coming into the system will not come out again, or this can mean that some (or all!) of the requests will be ignored. 
+        </para>
+        <para id="p6">
+Some systems are designed so that they will always have sufficient bandwidth.  This is more common for real time systems.  Other systems are designed to have enough bandwidth "on average."  The internet is a major example of such a system.  In general, ensuring that a design has sufficient bandwidth for the desired application is a major concern of an engineer. 
+        </para>
+        <para id="p7">
+For the first example, the real time computer game,   bandwidth corresponds to the maximum amount of input the game can handle from the internet, keyboard, mouse, etc without skipping, losing commands, or generally messing up.  Because modern computers generally far exceed the user's ability to provide input, this is rarely a problem.   
+        </para>
+        <para id="p8">
+With cell phones, the device is specifically designed to support a known bandwidth of communication, a two-way voice conversation.  Because the input bandwidth is very stable, the cell phone itself does not have latency or dropping problems.  Problems do occur between the cell phone and the cell phone tower, and this can cause skipping in the conversation.  These problems are more related to the random noise inherent to wireless communication than to the insufficient capacity of the cell phone.  The telephone system transmits sound information with a bandwidth of a few thousand hertz, so the bandwidth of the cell phone must also be able to provide this. 
+        </para>
+        <para id="p9">
+Finally, the control systems that allow guided missiles to fly long distances at great speed to hit very precise targets must guarantee that the information necessary for these on-the-fly calculations is available as fast as it is needed.  For situations with no tolerance for error, bandwidth needs to be sufficient for all situations.  The missile designer will avoid using systems that "statistically" provide enough bandwidth.  The data paths will need to be guaranteed to be sufficient for the application at all times.  
+        </para>
+      </section>    
+      <section id="s3">
+      <title>Worst Case Response and Latency</title>
+        <para id="p10">
+Latency is a word commonly used for the delay between the time the input enters a system and the time the output leaves.  A real time system is a system that can guarantee that no input's latency is longer than a specified maximum.  Not only must the statistical average latency be less than the specified maximum, but the worst case latency must also meet this requirement for strict real time operation.  To calculate a worst case latency, the absolute slowest path from the input to the system through the hardware and software must be added together.  This means that software conditions must be examined for the entire logical path through the software.  Generally the "specified maximum" is dictated by the maximum delay that can be tolerated by the user.  
+        </para>
+        <para id="p11">
+In a real time computer game problems with latency result in a noticeable delay between the time when the mouse is moved and the screen updates.  In computer games this happens because the system has more things visible on the screen than it has time to calculate the graphics for before the screen refreshes.  While lag is annoying, players can tolerate occasional problems. 
+        </para>
+        <para id="p12">
+In cell phone communications, there is much less tolerance for latency.  In general, cell phone users expect for cell phones to be as instantaneous as land line phones.  Therefore, the cell phone system will generally throw away any part of the conversation which is delayed too much rather than play the sound late.  This way only gaps in the connection rather than sound delays will be heard on the other end.  As with bandwidth, the cell phone designer designs the cell phone so that the hardware system will be able to reliably get one sound sample to the other end of the connection in time for the delay 
+not to be noticed by human perception.  
+        </para>
+        <para id="p13">
+Finally, missile systems have far less tolerance for latency than the other applications.  In high precision, high reliability systems the worst case must be taken into account because any single failure to meet latency requirements can be disastrous for the entire system.  Furthermore, the high speeds of aerospace applications mean that there is less absolute time for calculations to be made.   
+        </para>   
+      </section> 
+    </section> 
+  </content>
+</document>

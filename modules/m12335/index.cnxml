@@ -1,0 +1,40 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml">
+	<title>Lab 1: Using the Lab Hardware and Reading Datasheets</title>
+	<metadata><md:content-id>undefined</md:content-id><md:title/><md:uuid>ccf1a3f6-1d84-4007-9cb9-1325d12f2734</md:uuid>
+</metadata>
+	<content>
+		<exercise id="ex1">
+			<problem id="idm1043024">
+				<para id="ex1_2">Reproduce each of the following figures as closely as possible, and include a screenshot in your write up.  Don't forget to include the measurements and cursors.  Some of the input signals have introduced an offset.</para>
+				<para id="element-610">If you are using the <term>Tektronix TDS 3012B</term> and it has an ethernet connection, you can easily take screenshots of the display.  Simply type the IP address of the oscilloscope into your computer's web browser, and it will connect to the scope's web interface.  If you don't know the IP address of your scope, restart it.  The 3012B will display its current address during it's start up sequence.  Once you're connected to the scope from your web browser, you may save the image of the current display or control it through the web interface.</para>
+				<para id="ex1_3">
+By default, the oscilloscope acquires the signal with a very rough sampling process.  If you wish to improve the quality of your display you may change the  Acquisition Mode.  You may do this by going to <term>Quick Menu</term>-&gt; <term>Acquire Mode</term> then changing the mode.  Averaging several samples will give you a much smoother looking result.
+</para>
+				<figure id="element-894"><title>Figure 1: Sine Wave</title>
+					<media id="idm797424" alt=""><image src="../../media/5kHz_-_250mV_sin.png" mime-type="image/png"/></media>
+					<caption>Sine wave with measurements and cursors</caption></figure>
+				<figure id="element-771"><title>Figure 2: Square Wave</title>
+					<media id="idm7993312" alt=""><image src="../../media/1KHz_-_100_mV_.25_duty_square.png" mime-type="image/png"/></media>
+					<caption>Square wave with measurements and cursors</caption></figure>
+				<figure id="element-942"><title>Figure 3: FFT of Sine Wave</title>
+					<media id="idp2052656" alt=""><image src="../../media/8.5MHz_-_1.5V_sin.png" mime-type="image/png"/></media>
+					<caption>Sine wave and it's FFT.  FFT options may be found under the <term>Math</term> section.</caption></figure>
+			</problem>
+		</exercise>
+		<exercise id="ex2">
+			<problem id="idm397712">
+				<para id="p2">Now we will measure a couple signals directly on the ELEC226 board and learn how to read a schematic. Download <link resource="lab1_2_lite.hzx">lab1_2_lite.hzx</link>.  Open CrossStudio Release 1.3, and set your target as the MSP430 USB CrossConnect.  You can do this by clicking on <term>View</term>-&gt; <term>Targets</term>.  The Targets window should open up on the right panel.  Right click on <term>MSP430 USB CrossConnect</term> and select <term>Connect</term>.  You may download the project file to the MSP by selecting <term>Download File</term>-&gt; <term>Download CrossWorks Executable File</term> and navigating to the desired file.
+</para>
+				<para id="p2a">
+ Now locate the two high frequency crystal oscillators.  They are small silver cylinders.  Directly probe the two oscillators, and measure their respective frequencies.  Next, using the <link document="m12796" resource="msp430f16x_lite.pdf">schematic</link> locate the pin that outputs <term>SMCLK</term> or <term>MCLK</term>.  (Use the pin on Port 5.)  This is currently configured to output one of the oscillators.  Probe this pin and compare with the results that you obtained probing the oscillators directly.  Next, using the schematic locate the output pins for <term>DAC0</term>.  Measure the peak-to-peak amplitude, and frequency of the signal and include a screenshot.
+        </para></problem>
+		</exercise><exercise id="ex3">
+			<problem id="idm7395968">
+				<para id="p3">Next, we will run a couple signals from the function generator through the board's Analog to Digital Converters (ADC) and measure it a couple different places.  Download  <link resource="lab1_3_lite.hzx">lab1_3_lite.hzx</link>. Download the file like you did in Problem 2.  Set your function generator to produce a signal less than 2 kHz.  Connect it to the input of <term>A1</term>, analog input 1, and measure the  signal at the output of <term>DAC0</term>.  Try to recreate the following figure.
+<figure id="element-895">
+						<media id="idm7772352" alt=""><image src="../../media/pic1_3.png" mime-type="image/png"/></media>
+						<caption>Sine wave through ADC and DAC</caption></figure>
+What happens are you increase the frequency or amplitude of the input signal?  At what frequency does the signal very become skewed? </para></problem>
+		</exercise>
+	</content>
+</document>
